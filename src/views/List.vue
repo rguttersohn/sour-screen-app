@@ -3,8 +3,7 @@
     <h2>Our lists:</h2>
     <div v-for="list in lists" :key="list.id">
       <router-link :to="{name:'Post',params:{id:list.id}}" >
-            <h3 v-if="list.categories[0] === 3">{{list.title.rendered}}</h3>
-            <p  v-if="list.categories[0] === 3" v-html="list.excerpt.rendered"></p>
+            <PostCard :post="list"/>
       </router-link>
     </div>
   </div>
@@ -12,8 +11,10 @@
 
 <script>
 import { mapState } from "vuex";
+import PostCard from '@/components/PostCard.vue';
 
 export default {
+  components:{PostCard},
   computed: mapState({
     lists:state=>state.lists
   })
