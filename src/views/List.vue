@@ -3,7 +3,8 @@
     <h2>Our lists:</h2>
     <div v-for="post in posts" :key="post.id">
       <router-link :to="{name:'Post',params:{id:post.id}}" >
-            <p v-if="post.categories[0] === 3">{{post.title.rendered}}</p>
+            <h3 v-if="post.categories[0] === 3">{{post.title.rendered}}</h3>
+            <p  v-if="post.categories[0] === 3" v-html="post.excerpt.rendered"></p>
       </router-link>
     </div>
   </div>

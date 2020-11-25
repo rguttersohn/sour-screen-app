@@ -3,7 +3,10 @@
     <h2>These are movies in our database</h2>
      <div v-for="post in posts" :key="post.id">
         <router-link :to="{name:'Post', params:{id:post.id}}">
-          <p v-if="post.categories[0] === 4">{{post.title.rendered}}</p>
+          <div>
+              <h3 v-if="post.categories[0] === 4">{{post.title.rendered}}</h3>
+              <div v-if="post.categories[0]=== 4" v-html="post.excerpt.rendered"></div>
+          </div>
         </router-link>
       </div>
   </div>
