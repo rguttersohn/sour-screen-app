@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Our lists:</h2>
-    <div v-for="list in lists" :key="list.id">
+    <div v-for="list in lists" :key="list.id" class="post-card-container">
       <router-link :to="{name:'Post',params:{id:list.id}}" >
             <PostCard :post="list"/>
       </router-link>
@@ -21,5 +21,13 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss">
+
+.post-card-container{
+
+  a{
+    text-decoration:none;
+  }
+}
+
 </style>

@@ -1,36 +1,61 @@
 <template>
   <div class="post-card">
     <div>
-      <img src="#" alt="">
+      <img :src="image" alt="" />
     </div>
-      <div>
-        <h3>{{post.title.rendered}}</h3>
-        <p v-html="post.excerpt.rendered"></p>
-      </div>
+    <div>
+      <h2>{{ post.title.rendered }}</h2>
+      <p v-html="post.excerpt.rendered"></p>
+    </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
- props:{
-   post:Object
- }
+  props: {
+    post: Object,
+  },
+  data(){
+    return{
+      image:""
+    }
+  },
+computed:mapState({
+  baseAPIURL:state=>state.baseAPIURL
+}),
+created(){
+   fetch(`${this.baseAPIURL}/posts/${this.post.id}?_embed`)
+      .then((resp) => resp.json()).then((img) => {
+        if (img._embedded["wp:featuredmedia"]) {
+          this.image = img._embedded["wp:featuredmedia"][0].source_url;
+        }
+      });
 }
+};
 </script>
 
 <style lang='scss'>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.post-card {
+  border: 3px solid lightgray;
+  border-radius: 15px;
+  width: 55%;
+  margin: 3% auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+
+  div img {
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    object-position: 0 10%;    
+  }
+  div{
+    h2,p{
+      text-decoration: none;
+    }
+  }
 }
 </style>
