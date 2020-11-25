@@ -8,27 +8,27 @@ export default new Vuex.Store({
     baseAPIURL: "http://localhost:8888/wp-json/wp/v2",
     baseHostURL:"http://localhost:8888",
     posts:"",
-    count:0
+    lists:"",
+    movies:""
   },
   mutations: {
     GET_POSTS(state){
       fetch(`${state.baseAPIURL}/posts`)
       .then(resp=>resp.json())
-      .then(posts=>
+      .then(posts=>{
+        console.log(posts)
         state.posts = posts
-        )
+      })
     },
-    INCREMENT(state){
-      state.count++
-    }
   },
   actions: {
     getPosts(context){
       context.commit('GET_POSTS')
     },
-    increment(context){
-      context.commit('INCREMENT')
-    }
+  },
+  getters:{
+    lists:state=>state.posts.filter(post=>post.categories[0]===3),
+    movies:state=>state.posts.filter(post=>post.categories[0]===4)
   },
   modules: {
   }
