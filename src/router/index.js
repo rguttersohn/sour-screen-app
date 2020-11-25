@@ -20,7 +20,7 @@ const routes = [
     component: List,
   },
   { path: "/database", name: "Database", component: Database },
-  {path:"/post",name:"Post",component:Post}
+  {path:"/post/:id",name:"Post",component:Post}
 ];
 
 const router = new VueRouter({

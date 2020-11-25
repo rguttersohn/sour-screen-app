@@ -1,11 +1,12 @@
 <template>
   <div>
     <h2>Our lists:</h2>
-    <router-link to="/post">
       <div v-for="post in posts" :key="post.id">
+        <router-link :to="{name:'Post', params:{id:post.id}}">
           <p v-if="post.categories[0] === 3">{{post.title.rendered}}</p>
+        </router-link>
       </div>
-    </router-link>
+   
   </div>
 </template>
 
