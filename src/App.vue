@@ -1,13 +1,29 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Sour Screen logo</router-link>
+      <router-link to="/">
+        <img :src="logoURL" alt="" />
+      </router-link>
       <router-link to="/database">Database</router-link>
       <router-link to="/list">List</router-link>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+import { mapState } from "vuex";
+export default {
+  computed: {
+    logoURL(){
+      return `${this.baseHostURL}/wp-content/uploads/2020/11/sour_screen_logo-animated.svg`
+    },
+    ...mapState({
+      baseHostURL: (state) => state.baseHostURL,
+    }),
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
@@ -23,9 +39,16 @@
     padding: 30px;
     display: flex;
     justify-content: space-evenly;
-    border-bottom:3px solid lightgray
-
-
+    align-items:center;
+    border-bottom: 3px solid lightgray;
+    position: sticky;
+    top:0px;
+    z-index:999;
+    width:75%;
+    height:50px;
+    margin:auto;
+    background-color:white;
+    
     a {
       font-weight: 700;
       color: #2c3e50;
@@ -81,5 +104,4 @@ a {
   font-weight: 700;
   color: #2c3e50;
 }
-
 </style>
