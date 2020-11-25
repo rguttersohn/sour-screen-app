@@ -18,10 +18,10 @@ import {mapState} from 'vuex'
       }
     },
     computed:mapState({
-      baseURL: state=>state.baseURL
+      baseAPIURL: state=>state.baseAPIURL
     }),
     created:function(){
-    fetch(`${this.baseURL}/posts`).then(resp=>resp.json()).then(posts=>
+    fetch(`${this.baseAPIURL}/posts`).then(resp=>resp.json()).then(posts=>
     this.posts = posts)
   }
   }
