@@ -12,19 +12,11 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-    data(){
-        return{
-            posts:""
-        }
-    },
     computed:mapState({
-        baseAPIURL:state=>state.baseAPIURL
+        posts:state=>state.posts
     }),
     created:function(){
-        fetch(`${this.baseAPIURL}/posts`)
-            .then(resp=>resp.json()).then(posts =>
-            this.posts = posts
-            )
+      this.$store.dispatch('getPosts')
     }
 };
 </script>
