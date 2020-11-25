@@ -10,3 +10,6 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+fetch('http://localhost:8888/wp-json/wp/v2/posts')
+  .then(resp=>resp.json()).then(posts=>console.log(posts))
