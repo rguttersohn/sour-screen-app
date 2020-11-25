@@ -18,6 +18,9 @@ export default {
     computed:mapState({
         movies:state=>state.movies
     }),
+    created:function(){
+        this.$store.dispatch('getPosts')
+    }
 };
 </script>
 

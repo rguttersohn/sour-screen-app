@@ -2,7 +2,7 @@
   <div>
     <h2>Our lists:</h2>
     <div v-for="list in lists" :key="list.id">
-      <router-link :to="{name:'Post',params:{id:post.id}}" >
+      <router-link :to="{name:'Post',params:{id:list.id}}" >
             <h3 v-if="list.categories[0] === 3">{{list.title.rendered}}</h3>
             <p  v-if="list.categories[0] === 3" v-html="list.excerpt.rendered"></p>
       </router-link>
