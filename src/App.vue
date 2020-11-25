@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Oswald, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -18,20 +18,23 @@
   color: #2c3e50;
   width: 100vw;
   height: 100vh;
-}
 
-#nav {
-  padding: 30px;
-  display: flex;
-}
+  #nav {
+    padding: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom:3px solid lightgray
 
-#nav a {
-  font-weight: 700;
-  color: #2c3e50;
-}
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+    a {
+      font-weight: 700;
+      color: #2c3e50;
+    }
+
+    a.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 
 h1 {
@@ -74,4 +77,9 @@ pre {
   font-weight: 400;
   line-height: 18.5667px;
 }
+a {
+  font-weight: 700;
+  color: #2c3e50;
+}
+
 </style>
