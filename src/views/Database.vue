@@ -10,15 +10,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import PostCard from '@/components/PostCard.vue';
 export default {
     components:{
         PostCard
     },
-    computed:mapState({
-        movies:state=>state.movies
-    }),
+    computed:{
+      movies(){
+        return this.$store.getters.movies
+      }
+    },
     created:function(){
         this.$store.dispatch('getPosts')
     }

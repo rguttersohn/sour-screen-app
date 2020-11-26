@@ -7,9 +7,7 @@ export default new Vuex.Store({
   state: {
     baseAPIURL: "http://localhost:8888/wp-json/wp/v2",
     baseHostURL:"http://localhost:8888",
-    posts:"",
-    movies:"",
-    lists:""
+    posts:[],
   },
   mutations: {
     GET_POSTS(state){
@@ -17,8 +15,6 @@ export default new Vuex.Store({
       .then(resp=>resp.json())
       .then(posts=>{
         state.posts = posts
-        state.lists = posts.filter(post=>post.categories[0] === 3)
-        state.movies =posts.filter(post=>post.categories[0] === 4)
       })
     },
   },
@@ -28,5 +24,13 @@ export default new Vuex.Store({
     },
   },
   modules: {
+  },
+  getters:{
+    movies(state){
+      return state.posts.filter(post=>post.categories[0]===4)
+    },
+    lists(state){
+      return state.posts.filter(post=>post.categories[0] === 3)
+    }
   }
 })

@@ -10,14 +10,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import PostCard from '@/components/PostCard.vue';
 
 export default {
   components:{PostCard},
-  computed: mapState({
-    lists:state=>state.lists
-  })
+  computed: {
+    lists(){
+      return this.$store.getters.lists
+    }
+  }
 };
 </script>
 
