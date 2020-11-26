@@ -11,7 +11,7 @@ export default new Vuex.Store({
   },
   mutations: {
     GET_POSTS(state){
-      fetch(`${state.baseAPIURL}/posts`)
+      fetch(`${state.baseAPIURL}/posts/?_embed`)
       .then(resp=>resp.json())
       .then(posts=>{
         state.posts = posts
