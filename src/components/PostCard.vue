@@ -2,7 +2,8 @@
   <router-link :to="{ name: 'Post', params: { id: post.id } }">
     <div class="post-card">
       <div>
-        <img :src="image" alt="" />
+        <img v-if="post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large !== undefined" :src="postImageML" alt="" />
+        <img v-else :src="postImage" alt="">
       </div>
       <div>
         <h2 v-html="post.title.rendered"></h2>
@@ -13,7 +14,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
   props: {
     post: Object,
@@ -23,18 +23,14 @@ export default {
       image: "",
     };
   },
-  computed: mapState({
-    baseAPIURL: (state) => state.baseAPIURL,
-  }),
-  created() {
-    fetch(`${this.baseAPIURL}/posts/${this.post.id}?_embed`)
-      .then((resp) => resp.json())
-      .then((img) => {
-        if (img._embedded["wp:featuredmedia"]) {
-          this.image = img._embedded["wp:featuredmedia"][0].source_url;
-        }
-      });
-  },
+  computed:{
+    postImageML(){
+      return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url
+    },
+    postImage(){
+      return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url
+    }
+  }
 };
 </script>
 

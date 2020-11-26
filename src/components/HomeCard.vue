@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
   props: {
     post: Object,
@@ -25,11 +24,7 @@ export default {
     },
     postImage(){
       return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url
-    },
-    ... mapState({
-    baseAPIURL: (state) => state.baseAPIURL,
-    baseHostURL: state=>state.baseHostURL
-    })
+    }
   },
 };
 </script>
