@@ -28,6 +28,9 @@ export default {
       baseHostURL: (state) => state.baseHostURL,
     }),
   },
+      created:function(){
+        this.$store.dispatch('getPosts')
+    }
 };
 </script>
 

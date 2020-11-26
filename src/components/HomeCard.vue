@@ -1,15 +1,15 @@
 <template>
-  <div class="post-card">
-    <router-link :to="{name:'Post', params:{id:post.id}}">
-    <div>
-      <img :src="image" alt="" />
+  <router-link :to="{ name: 'Post', params: { id: post.id } }">
+    <div class="post-card">
+      <div>
+        <img :src="image" alt="" />
+      </div>
+      <div>
+        <h2 v-html="post.title.rendered"></h2>
+        <p v-html="post.excerpt.rendered"></p>
+      </div>
     </div>
-    <div>
-      <h2>{{ post.title.rendered }}</h2>
-      <p v-html="post.excerpt.rendered"></p>
-    </div>
-    </router-link>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -44,30 +44,37 @@ $color-blue: #0099cc;
 $color-lightred: #ffe7ff;
 $color-lightblue: #b1bbed;
 
-.post-card {
-  border: 5px solid $color-lightblue;
-  border-radius: 15px;
-  width: 33%;
-  margin: 3% auto;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: border-color 0.3s ease-in-out;
+.home-card-container {
+  .post-card {
+    border: 5px solid $color-lightblue;
+    border-radius: 15px;
+    width: 400px;
+    height: 400px;
+    margin: 3% 1%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color 0.3s ease-in-out;
 
-  &:hover {
-    border-color: $color-lightred;
-  }
-
-  div img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    object-position: 0 10%;
-  }
-  div {
-    h2,
-    p {
+    a {
       text-decoration: none;
+    }
+
+    &:hover {
+      border-color: $color-lightred;
+    }
+
+    div img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: 0 10%;
+    }
+    div {
+      h2,
+      p {
+        text-decoration: none;
+      }
     }
   }
 }

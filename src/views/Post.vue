@@ -2,7 +2,7 @@
   <div class="post-container">
     <div v-if="post !== ''">
       <img :src="image" />
-      <h1>{{ post.title.rendered }}</h1>
+      <h1 v-html="post.title.rendered"></h1>
       <div v-html="post.excerpt.rendered" class="post-excerpt-container"></div>
       <div v-html="post.content.rendered" class="post-content-container"></div>
     </div>

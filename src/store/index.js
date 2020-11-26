@@ -31,6 +31,12 @@ export default new Vuex.Store({
     },
     lists(state){
       return state.posts.filter(post=>post.categories[0] === 3)
+    },
+    newMovies(state, getters){
+      return getters.movies.slice(0,3)
+    },
+    newLists(state,getters){
+      return getters.lists.slice(0,3)
     }
   }
 })

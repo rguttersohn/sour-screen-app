@@ -18,9 +18,6 @@ export default {
         return this.$store.getters.movies
       }
     },
-    created:function(){
-        this.$store.dispatch('getPosts')
-    }
 };
 </script>
 
