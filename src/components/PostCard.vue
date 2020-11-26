@@ -36,14 +36,25 @@ created(){
 </script>
 
 <style lang='scss'>
+
+$color-red: #ff3333;
+$color-blue: #0099cc;
+$color-lightred: #ffe7ff;
+$color-lightblue: #b1bbed;
+
 .post-card {
-  border: 3px solid lightgray;
+  border: 5px solid $color-lightblue;
   border-radius: 15px;
-  width: 55%;
+  width: 33%;
   margin: 3% auto;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: border-color 0.3s ease-in-out;
+
+  &:hover{
+border-color:$color-lightred;
+  }
   
 
   div img {
