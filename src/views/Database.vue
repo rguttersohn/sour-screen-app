@@ -2,9 +2,7 @@
   <div>
     <h2>These are movies in our database</h2>
      <div v-for="movie in movies" :key="movie.id">
-        <router-link :to="{name:'Post', params:{id:movie.id}}">
           <PostCard :post="movie" />
-        </router-link>
       </div>
   </div>
 </template>

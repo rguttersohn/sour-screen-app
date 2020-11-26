@@ -1,6 +1,6 @@
 <template>
   <div class="post-card">
-    <router-link :to="{name:'Post',params:{id:post.id}}">
+    <router-link :to="{name:'Post', params:{id:post.id}}">
     <div>
       <img :src="image" alt="" />
     </div>
@@ -13,32 +13,32 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
 export default {
   props: {
     post: Object,
   },
-  data(){
-    return{
-      image:""
-    }
+  data() {
+    return {
+      image: "",
+    };
   },
-computed:mapState({
-  baseAPIURL:state=>state.baseAPIURL
-}),
-created(){
-   fetch(`${this.baseAPIURL}/posts/${this.post.id}?_embed`)
-      .then((resp) => resp.json()).then((img) => {
+  computed: mapState({
+    baseAPIURL: (state) => state.baseAPIURL,
+  }),
+  created() {
+    fetch(`${this.baseAPIURL}/posts/${this.post.id}?_embed`)
+      .then((resp) => resp.json())
+      .then((img) => {
         if (img._embedded["wp:featuredmedia"]) {
           this.image = img._embedded["wp:featuredmedia"][0].source_url;
         }
       });
-}
+  },
 };
 </script>
 
 <style lang='scss'>
-
 $color-red: #ff3333;
 $color-blue: #0099cc;
 $color-lightred: #ffe7ff;
@@ -54,19 +54,19 @@ $color-lightblue: #b1bbed;
   overflow: hidden;
   transition: border-color 0.3s ease-in-out;
 
-  &:hover{
-border-color:$color-lightred;
+  &:hover {
+    border-color: $color-lightred;
   }
-  
 
   div img {
-    width:100%;
-    height:250px;
-    object-fit:cover;
-    object-position: 0 10%;    
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: 0 10%;
   }
-  div{
-    h2,p{
+  div {
+    h2,
+    p {
       text-decoration: none;
     }
   }

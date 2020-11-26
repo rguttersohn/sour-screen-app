@@ -2,9 +2,7 @@
   <div>
     <h2>Our lists:</h2>
     <div v-for="list in lists" :key="list.id" class="post-card-container">
-      <router-link :to="{name:'Post',params:{id:list.id}}" >
             <PostCard :post="list"/>
-      </router-link>
     </div>
   </div>
 </template>

@@ -1,11 +1,21 @@
 <template>
   <div class="home">
-  this is the home page
+    <div class="home-card-container" v-for="movie in newMovies" :key="movie.id">
+      <HomeCard :post="movie"/>
+    </div>
+    <div class="home-card-container" v-for="list in newLists" :key="list.id">
+      <HomeCard :post="list"/>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import HomeCard from '@/components/HomeCard.vue';
 export default {
-  name: 'Home',
+  components:{
+HomeCard
+  },
+  computed:mapGetters(['newMovies','newLists'])
 }
 </script>
