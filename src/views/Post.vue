@@ -1,7 +1,7 @@
 <template>
   <div class="post-container">
     <div v-if="post !== ''">
-      <img :src="image" />
+      <img :src="postImage" />
       <h1 v-html="post.title.rendered"></h1>
       <div v-html="post.excerpt.rendered" class="post-excerpt-container"></div>
       <div v-html="post.content.rendered" class="post-content-container"></div>
@@ -16,20 +16,21 @@ export default {
     return {
       post: "",
       id: this.$route.params.id,
-      image: "",
     };
   },
-  computed: mapState({
-    baseAPIURL: (state) => state.baseAPIURL,
-    baseURL: (state) => state.baseURL,
-  }),
+  computed: {
+    postImage() {
+      return this.post._embedded["wp:featuredmedia"][0].media_details.sizes.full.source_url;
+    },
+    ...mapState({
+      baseAPIURL: (state) => state.baseAPIURL,
+      baseURL: (state) => state.baseURL,
+    }),
+  },
   created() {
     fetch(`${this.baseAPIURL}/posts/${this.id}?_embed`)
       .then((resp) => resp.json())
       .then((post) => {
-        if (post._embedded["wp:featuredmedia"]) {
-          this.image = post._embedded["wp:featuredmedia"][0].source_url;
-        }
         this.post = post;
       });
   },
@@ -48,7 +49,7 @@ export default {
   }
 
   .post-excerpt-container p {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 18px;
     font-style: normal;
     font-variant: normal;
