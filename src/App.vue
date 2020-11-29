@@ -13,7 +13,7 @@
         </h2></router-link>
       </div>
     </div>
-    <router-view />
+    <router-view :key="$route.fullPath" />
   </div>
 </template>
 

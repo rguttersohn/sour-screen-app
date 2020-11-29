@@ -1,5 +1,8 @@
 <template>
   <div class="post-container" >
+    <router-view name="PostContent">
+      <h2>test</h2>
+    </router-view>
     <div v-if="currentPost !== ''">
       <img :src="currentPost.jetpack_featured_media_url" />
       <!-- <h1 v-html="currentPost.title.rendered"></h1> -->
