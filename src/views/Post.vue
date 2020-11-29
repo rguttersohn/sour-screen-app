@@ -19,9 +19,7 @@
        <h2>Related Content:</h2>
        <p v-if="currentPost.title !== undefined">If you enjoyed {{currentPost.title.rendered}}, we think you'll like:</p>
       <div class="related-content-container" v-for="relatedPost in relatedPosts" :key="relatedPost.id" :data-id="relatedPost.id">
-          <router-link :to="{name:'Post',params:{id:relatedPost.id}}">
           <RelatedCard :post='relatedPost' />
-          </router-link>
       </div>
     </section>
   </div>
@@ -47,7 +45,6 @@ export default {
     }),
   },
   created() {
-    console.log('created')
     fetch(`${this.baseAPIURL}/posts/${this.id}?_embed`)
       .then((resp) => resp.json())
       .then((post) => {

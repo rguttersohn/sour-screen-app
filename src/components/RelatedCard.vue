@@ -1,14 +1,23 @@
 <template>
+  <router-link :to="{ name: 'Post', params: { id: post.id } }">
     <div class="related-card">
       <div>
-        <img v-if="post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large !== undefined" :src="postImageML" alt="" />
-        <img v-else :src="postImage" alt="">
+        <img
+          v-if="
+            post._embedded['wp:featuredmedia'][0].media_details.sizes
+              .medium_large !== undefined
+          "
+          :src="postImageML"
+          alt=""
+        />
+        <img v-else :src="postImage" alt="" />
       </div>
       <div>
         <h2 v-html="post.title.rendered"></h2>
         <p v-html="post.excerpt.rendered"></p>
       </div>
     </div>
+  </router-link>
 </template>
 
 <script>
@@ -16,13 +25,15 @@ export default {
   props: {
     post: Object,
   },
-  computed:{
-    postImageML(){
-      return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url
+  computed: {
+    postImageML() {
+      return this.post._embedded["wp:featuredmedia"][0].media_details.sizes
+        .medium_large.source_url;
     },
-    postImage(){
-      return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url
-    }
+    postImage() {
+      return this.post._embedded["wp:featuredmedia"][0].media_details.sizes.full
+        .source_url;
+    },
   },
 };
 </script>
