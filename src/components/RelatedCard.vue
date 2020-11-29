@@ -1,0 +1,70 @@
+<template>
+    <div class="related-card">
+      <div>
+        <img v-if="post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large !== undefined" :src="postImageML" alt="" />
+        <img v-else :src="postImage" alt="">
+      </div>
+      <div>
+        <h2 v-html="post.title.rendered"></h2>
+        <p v-html="post.excerpt.rendered"></p>
+      </div>
+    </div>
+</template>
+
+<script>
+export default {
+  props: {
+    post: Object,
+  },
+  computed:{
+    postImageML(){
+      return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url
+    },
+    postImage(){
+      return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url
+    }
+  },
+};
+</script>
+
+<style lang='scss'>
+$color-red: #ff3333;
+$color-blue: #0099cc;
+$color-lightred: #ffe7ff;
+$color-lightblue: #b1bbed;
+
+.related-content-container {
+  .related-card {
+    border: 5px solid $color-lightblue;
+    border-radius: 15px;
+    width: 400px;
+    height: 200px;
+    margin: 3% 1%;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    transition: border-color 0.3s ease-in-out;
+
+    a {
+      text-decoration: none;
+    }
+
+    &:hover {
+      border-color: $color-lightred;
+    }
+
+    div img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: 30% 10%;
+    }
+    div {
+      h2,
+      p {
+        text-decoration: none;
+      }
+    }
+  }
+}
+</style>

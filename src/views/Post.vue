@@ -1,8 +1,8 @@
 <template>
-  <div class="post-container">
+  <div class="post-container" :key="componentKey" >
     <div v-if="currentPost !== ''">
       <img :src="currentPost.jetpack_featured_media_url" />
-      <h1 v-html="currentPost.title.rendered"></h1>
+      <!-- <h1 v-html="currentPost.title.rendered"></h1> -->
       <div
         v-html="currentPost.excerpt.rendered"
         class="post-excerpt-container"
@@ -14,9 +14,11 @@
     </div>
     <section class="related-content">
        <h2>Related Content:</h2>
-       <p>If you enjoyed {{currentPost.title.rendered}}, we think you'll like:</p>
-      <div class="related-content-container" v-for="relatedPost in relatedPosts" :key="relatedPost.id">
-        <RelatedCard :post='relatedPost' />
+       <p v-if="currentPost.title !== undefined">If you enjoyed {{currentPost.title.rendered}}, we think you'll like:</p>
+      <div @click="renderNewPost" class="related-content-container" v-for="relatedPost in relatedPosts" :key="relatedPost.id" :data-id="relatedPost.id">
+          <router-link :to="{name:'Post',params:{id:relatedPost.id}}">
+          <RelatedCard :post='relatedPost' />
+          </router-link>
       </div>
     </section>
   </div>
@@ -26,12 +28,14 @@
 import { mapState } from "vuex";
 import RelatedCard from '@/components/RelatedCard.vue';
 export default {
+  name:"Post",
   components:{RelatedCard},
   data() {
     return {
       currentPost: "",
       id: this.$route.params.id,
       relatedPosts: [],
+      componentKey:0,
     };
   },
   computed: {
@@ -46,6 +50,9 @@ export default {
       .then((post) => {
         this.currentPost = post;
       });
+      if(this.posts.length > 0){
+        this.pushToRelated()
+      }
   },
   methods: {
     pushToRelated() {      
@@ -70,12 +77,17 @@ export default {
       });
       this.relatedPosts = this.posts.sort((a,b)=>a.relatedScore - b.relatedScore).reverse().slice(0,5)
     },
-  },
-  watch: {
-    currentPost: function () {
-      this.pushToRelated();
+    renderNewPost(){
+      this.$router.go()
+      this.currentPost = []
     },
   },
+  watch: {
+   currentPost: function () {
+     console.log('changed')
+      this.pushToRelated();
+    },
+  }
 };
 </script>
 
