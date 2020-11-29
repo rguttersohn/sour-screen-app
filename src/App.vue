@@ -11,7 +11,9 @@
         <router-link to="/list"><h2>
           List
         </h2></router-link>
+        <Search/>
       </div>
+      
     </div>
     <router-view :key="$route.fullPath" />
   </div>
@@ -19,7 +21,9 @@
 
 <script>
 import { mapState } from "vuex";
+import Search from '@/components/Search.vue';
 export default {
+  components:{Search},
   computed: {
     logoURL() {
       return `${this.baseHostURL}/wp-content/uploads/2020/11/sour_screen_logo-animated.svg`;
