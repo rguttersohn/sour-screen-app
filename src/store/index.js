@@ -27,10 +27,10 @@ export default new Vuex.Store({
   },
   getters:{
     movies(state){
-      return state.posts.filter(post=>post.categories[1] === 2)
+      return state.posts.filter(post=>post.categories[post.categories.findIndex(cat=>cat === 2)] === 2)
     },
     lists(state){
-      return state.posts.filter(post=>post.categories[0] === 3)
+      return state.posts.filter(post=>post.categories[post.categories.findIndex(cat=>cat === 3)] === 3)
     },
     newMovies(state, getters){
       return getters.movies.slice(0,3)
