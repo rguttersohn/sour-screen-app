@@ -1,7 +1,7 @@
 <template>
   <div class="post-container">
     <div v-if="currentPost !== ''">
-      <img :src="postImage" />
+      <img :src="currentPost.jetpack_featured_media_url" />
       <h1 v-html="currentPost.title.rendered"></h1>
       <div
         v-html="currentPost.excerpt.rendered"
@@ -12,19 +12,21 @@
         class="post-content-container"
       ></div>
     </div>
-    <div related-content-container>
-      <h2>Related Content:</h2>
-      <div v-for="post in relatedPosts" :key="post.id">
-        <h2 v-html="post.title.rendered"></h2>
-        <p v-html="post.excerpt.rendered"></p>
+    <section class="related-content">
+       <h2>Related Content:</h2>
+       <p>If you enjoyed {{currentPost.title.rendered}}, we think you'll like:</p>
+      <div class="related-content-container" v-for="relatedPost in relatedPosts" :key="relatedPost.id">
+        <RelatedCard :post='relatedPost' />
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import RelatedCard from '@/components/RelatedCard.vue';
 export default {
+  components:{RelatedCard},
   data() {
     return {
       currentPost: "",
@@ -33,10 +35,6 @@ export default {
     };
   },
   computed: {
-    postImage() {
-      return this.currentPost._embedded["wp:featuredmedia"][0].media_details
-        .sizes.full.source_url;
-    },
     ...mapState({
       baseAPIURL: (state) => state.baseAPIURL,
       posts: (state) => state.posts,
