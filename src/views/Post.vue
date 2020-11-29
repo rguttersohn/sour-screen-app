@@ -1,5 +1,5 @@
 <template>
-  <div class="post-container" :key="componentKey" >
+  <div class="post-container" >
     <div v-if="currentPost !== ''">
       <img :src="currentPost.jetpack_featured_media_url" />
       <!-- <h1 v-html="currentPost.title.rendered"></h1> -->
@@ -15,7 +15,7 @@
     <section class="related-content">
        <h2>Related Content:</h2>
        <p v-if="currentPost.title !== undefined">If you enjoyed {{currentPost.title.rendered}}, we think you'll like:</p>
-      <div @click="renderNewPost" class="related-content-container" v-for="relatedPost in relatedPosts" :key="relatedPost.id" :data-id="relatedPost.id">
+      <div class="related-content-container" v-for="relatedPost in relatedPosts" :key="relatedPost.id" :data-id="relatedPost.id">
           <router-link :to="{name:'Post',params:{id:relatedPost.id}}">
           <RelatedCard :post='relatedPost' />
           </router-link>
@@ -34,8 +34,7 @@ export default {
     return {
       currentPost: "",
       id: this.$route.params.id,
-      relatedPosts: [],
-      componentKey:0,
+      relatedPosts: []
     };
   },
   computed: {
@@ -45,14 +44,12 @@ export default {
     }),
   },
   created() {
+    console.log('created')
     fetch(`${this.baseAPIURL}/posts/${this.id}?_embed`)
       .then((resp) => resp.json())
       .then((post) => {
         this.currentPost = post;
       });
-      if(this.posts.length > 0){
-        this.pushToRelated()
-      }
   },
   methods: {
     pushToRelated() {      
@@ -76,16 +73,13 @@ export default {
         }
       });
       this.relatedPosts = this.posts.sort((a,b)=>a.relatedScore - b.relatedScore).reverse().slice(0,5)
-    },
-    renderNewPost(){
-      this.$router.go()
-      this.currentPost = []
-    },
+    }
   },
   watch: {
    currentPost: function () {
-     console.log('changed')
+     if (this.posts.length > 0){
       this.pushToRelated();
+     }
     },
   }
 };
