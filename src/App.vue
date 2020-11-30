@@ -5,15 +5,10 @@
         <router-link to="/">
           <img :src="logoURL" alt="" />
         </router-link>
-        <router-link to="/database"><h2>
-          Database
-        </h2></router-link>
-        <router-link to="/list"><h2>
-          List
-        </h2></router-link>
-        <Search/>
+        <router-link to="/database"><h2>Database</h2></router-link>
+        <router-link to="/list"><h2>List</h2></router-link>
+        <Search />
       </div>
-      
     </div>
     <router-view :key="$route.fullPath" />
   </div>
@@ -21,9 +16,9 @@
 
 <script>
 import { mapState } from "vuex";
-import Search from '@/components/Search.vue';
+import Search from "@/components/Search.vue";
 export default {
-  components:{Search},
+  components: { Search },
   computed: {
     logoURL() {
       return `${this.baseHostURL}/wp-content/uploads/2020/11/sour_screen_logo-animated.svg`;
@@ -32,9 +27,9 @@ export default {
       baseHostURL: (state) => state.baseHostURL,
     }),
   },
-      created:function(){
-        this.$store.dispatch('getPosts')
-    }
+  created: function () {
+    this.$store.dispatch("getPosts");
+  },
 };
 </script>
 
@@ -44,8 +39,14 @@ $color-blue: #0099cc;
 $color-lightred: #ffe7ff;
 $color-lightblue: #b1bbed;
 
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+}
+
 #app {
-  font-family: 'HelveticaNeue-CondensedBold','Helvetica Neue', Arial, sans-serif;
+  font-family: "Oswald", Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -55,7 +56,7 @@ $color-lightblue: #b1bbed;
 
   #nav {
     padding: 30px;
-    width:100vw;
+    width: 100vw;
     border-bottom: 3px solid $color-lightblue;
     position: sticky;
     top: 0px;
@@ -75,13 +76,13 @@ $color-lightblue: #b1bbed;
         color: #2c3e50;
         text-decoration: none;
 
-        h2{
-          text-transform:uppercase;
+        h2 {
+          text-transform: uppercase;
         }
       }
 
       a.router-link-exact-active {
-        color:$color-blue;
+        color: $color-blue;
         border-bottom: 2px solid $color-red;
         padding-bottom: 0;
       }
@@ -90,41 +91,44 @@ $color-lightblue: #b1bbed;
 }
 
 h1 {
-  font-family:'Franklin Gothic', 'Arial', Arial, sans-serif;
-  font-size: 36px;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 48px;
   font-style: normal;
   font-variant: normal;
   font-weight: bolder;
   line-height: 26.4px;
-  color:$color-red;
-  text-transform:uppercase;
+  color: $color-red;
+  text-transform: uppercase;
+  line-height: 120%;
 }
 
-h2{
-
+h2 {
   font-family: Oswald;
   font-size: 24px;
   font-style: normal;
   font-variant: normal;
   font-weight: 700;
   line-height: 26.4px;
+  line-height: 120%;
 }
 
 h3 {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 18px;
   font-style: normal;
   font-variant: normal;
   font-weight: 700;
   line-height: 15.4px;
+  line-height: 120%;
 }
 p {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 16px;
   font-style: normal;
   font-variant: normal;
   font-weight: 400;
   line-height: 20px;
+  line-height: 120%;
 }
 blockquote {
   font-family: Oswald;

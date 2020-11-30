@@ -1,5 +1,8 @@
 <template>
-  <div class="home">
+  <div class="home-container">
+    <section id="home-banner-container">
+      <HomeBanner />
+    </section>
     <section id="new-movies-section">
       <h1>Latest additions to our database:</h1>
       <div class="home-card-flex-wrapper">
@@ -30,20 +33,41 @@
 <script>
 import { mapGetters } from "vuex";
 import HomeCard from "@/components/HomeCard.vue";
+import HomeBanner from "@/components/HomeBanner.vue";
 export default {
   components: {
     HomeCard,
+    HomeBanner,
   },
   computed: mapGetters(["newMovies", "newLists"]),
 };
 </script>
 
 <style lang="scss">
-.home-card-flex-wrapper {
-  display: flex;
-  justify-content: space-around;
-  width: 75%;
-  margin: auto;
+$color-red: #ff3333;
+$color-blue: #0099cc;
+$color-lightred: #ffe7ff;
+$color-lightblue: #b1bbed;
 
+#home-banner-container {
+  width: 100%;
+  margin: auto;
+}
+
+.home-container {
+  width:100vw;
+  
+  #new-movies-section {
+    h1 {
+      text-align: left;
+      color: $color-blue;
+    }
+  }
+  .home-card-flex-wrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 75%;
+    margin: auto;
+  }
 }
 </style>
