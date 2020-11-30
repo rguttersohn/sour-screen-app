@@ -5,8 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    baseAPIURL: "http://3.89.20.61/wp-json/wp/v2",
-    baseHostURL:"http://3.89.20.61/",
+    baseAPIURL: "https://www.api-sourscreen.com/wp-json/wp/v2",
+    baseHostURL:"https://www.api-sourscreen.com/",
     posts:[],
   },
   mutations: {

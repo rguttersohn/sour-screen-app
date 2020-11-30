@@ -3,7 +3,7 @@
     <div class="post-card">
       <div>
         <img v-if="post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large !== undefined" :src="postImageML" alt="" />
-        <img v-else :src="postImage" alt="">
+        <img v-else :src="postImage" :alt="post._embedded['wp:featuredmedia'][0].alt">
       </div>
       <div>
         <h2 v-html="post.title.rendered"></h2>

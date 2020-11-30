@@ -45,7 +45,7 @@ $color-lightred: #ffe7ff;
 $color-lightblue: #b1bbed;
 
 #app {
-  font-family: Oswald, Helvetica, Arial, sans-serif;
+  font-family: 'HelveticaNeue-CondensedBold','Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -90,11 +90,11 @@ $color-lightblue: #b1bbed;
 }
 
 h1 {
-  font-family: Oswald;
+  font-family:'Franklin Gothic', 'Arial', Arial, sans-serif;
   font-size: 36px;
   font-style: normal;
   font-variant: normal;
-  font-weight: 700;
+  font-weight: bolder;
   line-height: 26.4px;
   color:$color-red;
   text-transform:uppercase;

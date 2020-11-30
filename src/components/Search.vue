@@ -42,7 +42,7 @@ export default {
   methods: {
     searchPosts: function () {
       this.isSearching = true;
-      fetch(`http://3.89.20.61/wp-json/wp/v2/posts?search=${this.searchQuery}`)
+      fetch(`${this.$store.state.baseAPIURL}/posts?search=${this.searchQuery}`)
         .then((resp) => resp.json())
         .then((result) => {
           this.searchResult = result;
