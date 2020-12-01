@@ -107,9 +107,9 @@ h2 {
   font-size: 24px;
   font-style: normal;
   font-variant: normal;
-  font-weight: 700;
-  line-height: 26.4px;
+  font-weight: bold;
   line-height: 120%;
+  text-transform:uppercase;
 }
 
 h3 {
