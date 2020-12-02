@@ -1,14 +1,18 @@
 <template>
   <div id="app">
     <div id="nav">
-      <div class="nav-container">
-        <router-link to="/">
-          <img :src="logoURL" alt="" />
-        </router-link>
-        <router-link to="/database"><h2>Database</h2></router-link>
-        <router-link to="/list"><h2>List</h2></router-link>
-        <Search />
-      </div>
+       <div class="nav-wrapper">
+         <div class="logo-container">
+           <router-link to="/">
+              <img :src="logoURL" alt="sour screen logo" />
+            </router-link>
+         </div>
+        <div class="nav-container">
+          <router-link to="/database"><h2>Database</h2></router-link>
+          <router-link to="/list"><h2>List</h2></router-link>
+          <Search />
+        </div>
+       </div>
     </div>
     <router-view :key="$route.fullPath" />
   </div>
@@ -21,7 +25,7 @@ export default {
   components: { Search },
   computed: {
     logoURL() {
-      return `${this.baseHostURL}/wp-content/uploads/2020/11/sour_screen_logo-animated.svg`;
+      return `${this.baseHostURL}/wp-content/uploads/2020/12/sour_screen_logo-animated-v2.svg`;
     },
     ...mapState({
       baseHostURL: (state) => state.baseHostURL,
@@ -62,19 +66,26 @@ body {
     top: 0px;
     z-index: 999;
     background-color: white;
+    height:70px;
+
+    .nav-wrapper{
+    display:flex;
+    justify-content: space-between;
+    width:80%;
+    margin:auto;
 
     .nav-container {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: flex-end;
       align-items: center;
-      width: 75%;
-      height: 50px;
+      width: 50%;
       margin: auto;
 
       a {
         font-weight: 700;
         color: #2c3e50;
         text-decoration: none;
+        flex-grow:1;
 
         h2 {
           text-transform: uppercase;
@@ -86,6 +97,7 @@ body {
         border-bottom: 2px solid $color-red;
         padding-bottom: 0;
       }
+    }
     }
   }
 }

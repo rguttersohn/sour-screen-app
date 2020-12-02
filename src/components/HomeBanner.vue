@@ -25,12 +25,13 @@ $color-lightblue: #b1bbed;
 
 .home-banner {
   background: url(https://www.api-sourscreen.com/wp-content/uploads/2020/11/the-room.jpg);
-  width: 100%;
+  width: 100vw;
   height: 30rem;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   margin: auto;
+  translate:scale(1.1,1.1);
 
   .home-banner-content-container {
     position: relative;

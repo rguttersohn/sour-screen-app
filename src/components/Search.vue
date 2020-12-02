@@ -4,7 +4,7 @@
       <input
         v-model="searchQuery"
         type="text"
-        placeholder="Search movies and lists"
+        placeholder="search"
       />
     </form>
     <div class="search-results" :class="{ 'search-active': isSearching }">
@@ -87,11 +87,21 @@ $color-lightblue: #b1bbed;
       border-radius: 15px;
       box-sizing: border-box;
     }
-    input:focus{
-        outline:none;
+    input:focus {
+      outline: none;
     }
-    ::placeholder{
-        color:$color-blue
+    ::placeholder {
+      color: $color-blue;
+      font-family: Oswald;
+      font-size: 24px;
+      font-style: normal;
+      font-variant: normal;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    text-area{
+      font-family:inherit;
+      font-size:100%;
     }
   }
   .search-results {
@@ -114,7 +124,7 @@ $color-lightblue: #b1bbed;
     top: 75%;
     left: 50%;
     overflow-y: scroll;
-    box-shadow:5px 5px 5px 2px $color-lightblue;
+    box-shadow: 5px 5px 5px 2px $color-lightblue;
     border: 3px solid $color-lightblue;
   }
 }
