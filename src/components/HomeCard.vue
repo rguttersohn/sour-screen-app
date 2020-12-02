@@ -1,8 +1,9 @@
 <template>
-  <router-link :to="{ name: 'Post', params: { id: post.id } }">
-    <div class="post-card">
-      <div>
+  <router-link @mouseover.native="mousedOver=true" @mouseleave.native="mousedOver=false" :to="{ name: 'Post', params: { id: post.id } }">
+    <div class="home-card">
+      <div class="home-card-upper">
         <img
+          class="home-card-image"
           v-if="
             post._embedded['wp:featuredmedia'][0].media_details.sizes
               .medium_large !== undefined
@@ -10,12 +11,12 @@
           :src="postImageML"
           alt=""
         />
-        <img v-else :src="postImage" alt="" />
+        <img class="home-card-image" v-else :src="postImage" alt="" />
       </div>
-      <div>
+      <div class="home-card-lower">
         <h2 v-html="post.title.rendered"></h2>
         <p v-html="post.excerpt.rendered"></p>
-        <h3>read</h3>
+        <img v-if="mousedOver" class="play-icon-container" :src="readIcon" alt="read icon" />
       </div>
     </div>
   </router-link>
@@ -26,6 +27,11 @@ export default {
   props: {
     post: Object,
   },
+  data(){
+    return{
+      mousedOver:false
+    }
+  },
   computed: {
     postImageML() {
       return this.post._embedded["wp:featuredmedia"][0].media_details.sizes
@@ -34,6 +40,9 @@ export default {
     postImage() {
       return this.post._embedded["wp:featuredmedia"][0].media_details.sizes.full
         .source_url;
+    },
+    readIcon() {
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/read-icon-red.svg`;
     },
   },
 };
@@ -46,15 +55,14 @@ $color-lightred: #ffe7ff;
 $color-lightblue: #b1bbed;
 
 .home-card-container {
-  width:30%;
-  background-color:white;
+  width: 30%;
+  background-color: white;
   border: 5px solid $color-blue;
-      border-radius: 15px;
- 
+  border-radius: 15px;
+
   a {
     text-decoration: none;
-    .post-card {
-      
+    .home-card {
       width: 100%;
       height: 25rem;
       margin: 3% 1%;
@@ -62,39 +70,46 @@ $color-lightblue: #b1bbed;
       flex-direction: column;
       overflow: hidden;
       transition: border-color 0.3s ease-in-out;
+      border: 5px solid $color-lightblue;
+      border-radius: 15px;
 
-      &:hover,&:active,&:focus {
+      &:hover,
+      &:active,
+      &:focus {
         border-color: $color-red;
       }
 
-      div img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-        object-position: 0 10%;
-        transform: scale(1.1,1.1);
+      .home-card-upper {
+        position: relative;
+
+        .home-card-image {
+          width: 100%;
+          height: 250px;
+          object-fit: cover;
+          object-position: 0 10%;
+          transform: scale(1.1, 1.1);
+        }
       }
-      div:nth-child(2) {
+
+      .home-card-lower {
         padding: 3%;
-        background-color:white;
-        height:100%;
+        background-color: white;
+        height: 100rem;
         position:relative;
-        
+
         h2,
-        h3,
         p {
-          margin:0 0 2%;
+          margin: 0 0 2%;
         }
         h2 {
           text-align: left;
-          color:$color-red;
+          color: $color-red;
         }
-        h3 {
-          text-align: left;
+        .play-icon-container {
+          display:block;
           position:absolute;
-          top:80%;
-          left:3%;
-          color:$color-blue;
+          height:50%;
+          top:90px;
         }
       }
     }
