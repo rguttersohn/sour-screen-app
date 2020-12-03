@@ -7,14 +7,20 @@
         our ultimate list of movies sure to make you chuckle.
       </h3>
       <router-link class="home-banner-button" :to="{ name: 'Post', params: { id: 23 } }">
-        Get Started Here
+        <img class="get-started-icon-container" :src="getStartedIcon" alt="icon for getting started">
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  computed:{
+    getStartedIcon(){
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/get-started-icon.svg`
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -66,6 +72,10 @@ $color-lightblue: #b1bbed;
     transition: background-color 0.3s ease-in-out;
     top: 70%;
     text-transform: uppercase;
+
+    .get-started-icon-container{
+      width:10rem;
+    }
   }
 
   a:hover {
