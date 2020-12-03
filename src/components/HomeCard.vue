@@ -12,6 +12,9 @@
           alt=""
         />
         <img class="home-card-image" v-else :src="postImage" alt="" />
+        <template v-for="(tag,index) in post._embedded['wp:term'][1]">
+          <img class="starter-icon" v-if="tag.name === 'starter'" :key="index" :src="starterIcon" alt="starter icon">
+          </template>
       </div>
       <div class="home-card-lower">
         <h2 v-html="post.title.rendered"></h2>
@@ -44,7 +47,10 @@ export default {
     readIcon() {
       return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/read-icon-red.svg`;
     },
-  },
+    starterIcon(){
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/starter-icon.svg`
+    },
+  }
 };
 </script>
 
@@ -81,6 +87,13 @@ $color-lightblue: #b1bbed;
 
       .home-card-upper {
         position: relative;
+
+
+        .starter-icon{
+          width:15%;
+          position:absolute;
+          right:10px;
+        }
 
         .home-card-image {
           width: 100%;

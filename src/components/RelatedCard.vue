@@ -11,6 +11,15 @@
           alt=""
         />
         <img v-else :src="postImage" alt="" />
+        <template v-for="(tag, index) in post._embedded['wp:term'][1]">
+          <img
+            class="starter-icon"
+            v-if="tag.name === 'starter'"
+            :key="index"
+            :src="starterIcon"
+            alt="starter icon"
+          />
+        </template>
       </div>
       <div>
         <h2 v-html="post.title.rendered"></h2>
@@ -64,16 +73,26 @@ $color-lightblue: #b1bbed;
       border-color: $color-lightred;
     }
 
-    div img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      object-position: 30% 10%;
-    }
     div {
-      h2,
-      p {
-        text-decoration: none;
+      position:relative;
+
+
+      .starter-icon{
+        position:absolute;
+        bottom:10rem;
+      }
+
+      div img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        object-position: 30% 10%;
+      }
+      div {
+        h2,
+        p {
+          text-decoration: none;
+        }
       }
     }
   }
