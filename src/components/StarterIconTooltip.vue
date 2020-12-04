@@ -3,8 +3,8 @@
     @mouseover="maintainTooltipReveal"
     @mouseout="hideTooltip"
     class="starter-icon-tooltip"
-    :class="{ 'reveal-tooltip': iconHover }"
-    :style="{ left: clientX - 200 + 'px', top: clientY + 50 + 'px' }"
+    :class="{'reveal-tooltip':iconHover}"
+    :style="{ left: clientX - 200 + 'px', top: clientY - 300 + 'px' }"
   >
     <p>
       This is a Sour Screen starter. We think this is a must-watch bad movie.
@@ -37,12 +37,17 @@ export default {
       return this.$store.state.iconTooltipY;
     },
     getStartedIcon() {
-      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/get-started-icon.svg`;
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/read-icon-blue.svg`;
     },
   },
+  
   methods: {
-    maintainTooltipReveal() {
+    maintainTooltipReveal(event) {
       this.$store.commit("ICON_HOVER_TRUE");
+      this.$store.commit('SET_ICON_TOOLTIP_COORDS',{
+        x:event.clientX,
+        y:event.clientY
+      })
     },
     hideTooltip() {
       this.$store.commit("ICON_HOVER_FALSE");
@@ -72,6 +77,7 @@ $color-lightblue: #b1bbed;
   transition-delay: 0.3s;
   opacity: 0;
 
+
   .home-banner-button {
     background-color: $color-red;
     color: white;
@@ -81,6 +87,7 @@ $color-lightblue: #b1bbed;
     transition: background-color 0.3s ease-in-out;
     top: 70%;
     text-transform: uppercase;
+    display:none;
 
     .get-started-icon-container {
       width: 10rem;
@@ -90,6 +97,7 @@ $color-lightblue: #b1bbed;
 
 .reveal-tooltip {
   opacity: 1;
+  display:block;
 }
 
 @media screen and (max-width: 670px) {
