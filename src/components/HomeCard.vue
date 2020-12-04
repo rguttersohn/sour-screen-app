@@ -1,5 +1,10 @@
 <template>
-  <router-link @mouseover.native="mousedOver=true" @mouseleave.native="mousedOver=false" :to="{ name: 'Post', params: { id: post.id } }">
+  <router-link
+    @click.native="hideTooltip"
+    @mouseover.native="mousedOver = true"
+    @mouseleave.native="mousedOver = false"
+    :to="{ name: 'Post', params: { id: post.id } }"
+  >
     <div class="home-card">
       <div class="home-card-upper">
         <img
@@ -12,15 +17,31 @@
           alt=""
         />
         <img class="home-card-image" v-else :src="postImage" alt="" />
-        <template v-for="(tag,index) in post._embedded['wp:term'][1]">
-          <img class="starter-icon" v-if="tag.name === 'starter'" :key="index" :src="starterIcon" alt="starter icon">
-          </template>
+        <template v-for="(tag, index) in post._embedded['wp:term'][1]">
+          <img
+            @mouseover="revealTooltip"
+            @mouseleave="hideTooltip"
+            class="starter-icon"
+            v-if="tag.name === 'starter'"
+            :key="index"
+            :src="starterIcon"
+            alt="starter icon"
+          />
+        </template>
       </div>
       <div class="home-card-lower">
         <h2 v-html="post.title.rendered"></h2>
         <p v-html="post.excerpt.rendered"></p>
-        <img v-if="mousedOver" class="play-icon-container" :src="readIcon" alt="read icon" />
+        <img
+          @mouseover="revealTooltip"
+          @mouseleave="hideTooltip"
+          v-if="mousedOver"
+          class="play-icon-container"
+          :src="readIcon"
+          alt="read icon"
+        />
       </div>
+      
     </div>
   </router-link>
 </template>
@@ -30,10 +51,10 @@ export default {
   props: {
     post: Object,
   },
-  data(){
-    return{
-      mousedOver:false
-    }
+  data() {
+    return {
+      mousedOver: false,
+    };
   },
   computed: {
     postImageML() {
@@ -47,10 +68,26 @@ export default {
     readIcon() {
       return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/read-icon-red.svg`;
     },
-    starterIcon(){
-      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/starter-icon.svg`
+    starterIcon() {
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/starter-icon.svg`;
     },
-  }
+    iconHover() {
+      return this.$store.state.iconHover;
+    },
+  },
+  methods: {
+    revealTooltip(event) {
+     this.$store.commit('SET_ICON_TOOLTIP_COORDS',
+     {
+       x:event.clientX,
+       y:event.clientY
+     })
+      this.$store.commit("ICON_HOVER_TRUE");
+    },
+    hideTooltip() {
+      this.$store.commit("ICON_HOVER_FALSE");
+    },
+  },
 };
 </script>
 
@@ -88,11 +125,10 @@ $color-lightblue: #b1bbed;
       .home-card-upper {
         position: relative;
 
-
-        .starter-icon{
-          width:15%;
-          position:absolute;
-          right:10px;
+        .starter-icon {
+          width: 15%;
+          position: absolute;
+          right: 10px;
         }
 
         .home-card-image {
@@ -108,7 +144,7 @@ $color-lightblue: #b1bbed;
         padding: 3%;
         background-color: white;
         height: 100rem;
-        position:relative;
+        position: relative;
 
         h2,
         p {
@@ -119,10 +155,10 @@ $color-lightblue: #b1bbed;
           color: $color-red;
         }
         .play-icon-container {
-          display:block;
-          position:absolute;
-          height:50%;
-          top:90px;
+          display: block;
+          position: absolute;
+          height: 50%;
+          top: 90px;
         }
       }
     }

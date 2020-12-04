@@ -8,6 +8,9 @@ export default new Vuex.Store({
     baseAPIURL: "https://www.api-sourscreen.com/wp-json/wp/v2",
     baseHostURL:"https://www.api-sourscreen.com/",
     posts:[],
+    iconHover:false,
+    iconTooltipX:0,
+    iconTooltipY:0
   },
   mutations: {
     GET_POSTS(state){
@@ -17,11 +20,21 @@ export default new Vuex.Store({
         state.posts = posts
       })
     },
+    ICON_HOVER_TRUE(state){
+      state.iconHover = true
+    },
+    ICON_HOVER_FALSE(state){
+      state.iconHover = false
+    },
+    SET_ICON_TOOLTIP_COORDS(state,{x,y}){
+      state.iconTooltipX = x
+      state.iconTooltipY = y
+    }
   },
   actions: {
     getPosts(context){
       context.commit('GET_POSTS')
-    },
+    }
   },
   modules: {
   },

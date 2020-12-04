@@ -43,6 +43,9 @@ export default {
       return this.post._embedded["wp:featuredmedia"][0].media_details.sizes.full
         .source_url;
     },
+    starterIcon() {
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/starter-icon.svg`;
+    },
   },
 };
 </script>
