@@ -1,35 +1,15 @@
 <template>
   <div id="app">
-    <div id="nav">
-       <div class="nav-wrapper">
-         <div class="logo-container">
-           <router-link to="/">
-              <img :src="logoURL" alt="sour screen logo" />
-            </router-link>
-         </div>
-        <div class="nav-container">
-          <router-link to="/database"><h2>Database</h2></router-link>
-          <router-link to="/list"><h2>List</h2></router-link>
-          <Search />
-        </div>
-       </div>
-    </div>
+    <AppNav />
     <router-view :key="$route.fullPath" />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import Search from "@/components/Search.vue";
+import AppNav from "@/components/AppNav.vue";
 export default {
-  components: { Search },
-  computed: {
-    logoURL() {
-      return `${this.baseHostURL}/wp-content/uploads/2020/12/sour_screen_logo-animated-v2.svg`;
-    },
-    ...mapState({
-      baseHostURL: (state) => state.baseHostURL,
-    }),
+  components: {
+    AppNav,
   },
   created: function () {
     this.$store.dispatch("getPosts");
@@ -47,59 +27,6 @@ body {
   width: 100vw;
   height: 100vh;
   margin: auto;
-}
-
-#app {
-  font-family: "Oswald", Arial,sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  width: 100vw;
-  height: 100vh;
-
-  #nav {
-    padding: 30px;
-    width: 100vw;
-    border-bottom: 3px solid $color-lightblue;
-    position: sticky;
-    top: 0px;
-    z-index: 999;
-    background-color: white;
-    height:70px;
-
-    .nav-wrapper{
-    display:flex;
-    justify-content: space-between;
-    width:80%;
-    margin:auto;
-
-    .nav-container {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      width: 50%;
-      margin: auto;
-
-      a {
-        font-weight: 700;
-        color: #2c3e50;
-        text-decoration: none;
-        flex-grow:1;
-
-        h2 {
-          text-transform: uppercase;
-        }
-      }
-
-      a.router-link-exact-active {
-        color: $color-blue;
-        border-bottom: 2px solid $color-red;
-        padding-bottom: 0;
-      }
-    }
-    }
-  }
 }
 
 h1 {
@@ -121,7 +48,7 @@ h2 {
   font-variant: normal;
   font-weight: bold;
   line-height: 120%;
-  text-transform:uppercase;
+  text-transform: uppercase;
 }
 
 h3 {
