@@ -121,8 +121,6 @@ $color-lightblue: #b1bbed;
     position: absolute;
     z-index: 1000;
     background-color: white;
-    top: 75%;
-    left: 50%;
     overflow-y: scroll;
     box-shadow: 5px 5px 5px 2px $color-lightblue;
     border: 3px solid $color-lightblue;

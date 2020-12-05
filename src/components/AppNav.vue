@@ -1,5 +1,5 @@
 <template>
-  <div id="nav" class="h-36 w-screen flex justify-center items-center">
+  <div id="nav" class="h-36 w-screen flex justify-center items-center shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main">
     <div class="w-9/12 my-3 h-3/12 flex justify-between items-center">
       <div class="logo-container">
         <router-link to="/">
@@ -34,4 +34,5 @@ $color-red: #ff3333;
 $color-blue: #0099cc;
 $color-lightred: #ffe7ff;
 $color-lightblue: #b1bbed;
+
 </style>

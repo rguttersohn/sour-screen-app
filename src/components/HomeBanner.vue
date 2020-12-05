@@ -1,6 +1,6 @@
 <template>
-  <div class="home-banner">
-    <div class="home-banner-content-container">
+  <div class="min-h-screen bg-gray-100 py-6">
+    <div class="h-96">
       <h1>Our Ultimate List of Bad Movies</h1>
       <h3>
         Looking to dip your toes into the waters of bad movies?<br />Check out
