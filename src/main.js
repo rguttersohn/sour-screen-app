@@ -2,9 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Popover from 'vue-js-popover'
+import VTooltip from 'v-tooltip'
+ 
+Vue.use(VTooltip)
 
-Vue.use(Popover)
+VTooltip.options.popover.defaultTrigger = 'hover'
 
 Vue.config.productionTip = false
 

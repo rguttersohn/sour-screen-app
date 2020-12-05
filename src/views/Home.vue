@@ -34,7 +34,6 @@
         </div>
       </div>
     </section>
-    <StarterIconTooltip/>
   </div>
 </template>
 
@@ -42,12 +41,10 @@
 import { mapGetters } from "vuex";
 import HomeCard from "@/components/HomeCard.vue";
 import HomeBanner from "@/components/HomeBanner.vue";
-import StarterIconTooltip from '@/components/StarterIconTooltip.vue';
 export default {
   components: {
     HomeCard,
     HomeBanner,
-    StarterIconTooltip
   },
   computed: mapGetters(["newMovies", "newLists"]),
 };

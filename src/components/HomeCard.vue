@@ -1,6 +1,5 @@
 <template>
   <router-link
-    @click.native="hideTooltip"
     @mouseover.native="mousedOver = true"
     @mouseleave.native="mousedOver = false"
     :to="{ name: 'Post', params: { id: post.id } }"
@@ -18,30 +17,39 @@
         />
         <img class="home-card-image" v-else :src="postImage" alt="" />
         <template v-for="(tag, index) in post._embedded['wp:term'][1]">
-          <img
-            @mouseover="revealTooltip"
-            @mouseleave="hideTooltip"
-            class="starter-icon"
-            v-if="tag.name === 'starter'"
+          <v-popover
+            offset="16"
+            placement="right"
+            hideOnTargetClick="false"
+            :delay="{show:100,hide:3000}"
             :key="index"
-            :src="starterIcon"
-            alt="starter icon"
-          />
+            v-if="tag.name === 'starter'"
+          >
+            <img
+              class="starter-icon tooltip-target"
+              :src="starterIcon"
+              alt="starter icon"
+            />
+            <template slot="popover">
+              <h3 v-html="post.title.rendered"></h3>
+              <p><span v-html="post.title.rendered"></span> is part of Sour Screen's start list</p>
+              <router-link :to="{ name: 'Post', params: { id: 23 } }">
+                <p>Read the full list of starter movies here.</p>
+              </router-link>
+            </template>
+          </v-popover>
         </template>
       </div>
       <div class="home-card-lower">
         <h2 v-html="post.title.rendered"></h2>
         <p v-html="post.excerpt.rendered"></p>
         <img
-          @mouseover="revealTooltip"
-          @mouseleave="hideTooltip"
           v-if="mousedOver"
           class="play-icon-container"
           :src="readIcon"
           alt="read icon"
         />
       </div>
-      
     </div>
   </router-link>
 </template>
@@ -77,11 +85,10 @@ export default {
   },
   methods: {
     revealTooltip(event) {
-     this.$store.commit('SET_ICON_TOOLTIP_COORDS',
-     {
-       x:event.clientX,
-       y:event.clientY
-     })
+      this.$store.commit("SET_ICON_TOOLTIP_COORDS", {
+        x: event.clientX,
+        y: event.clientY,
+      });
       this.$store.commit("ICON_HOVER_TRUE");
     },
     hideTooltip() {
@@ -96,6 +103,11 @@ $color-red: #ff3333;
 $color-blue: #0099cc;
 $color-lightred: #ffe7ff;
 $color-lightblue: #b1bbed;
+
+.tooltip.popover {
+  background-color: white;
+  padding:3%;
+}
 
 .home-card-container {
   width: 30%;
@@ -125,10 +137,17 @@ $color-lightblue: #b1bbed;
       .home-card-upper {
         position: relative;
 
-        .starter-icon {
-          width: 15%;
+        .v-popover {
           position: absolute;
           right: 10px;
+          bottom: 190px;
+
+          .starter-icon {
+            width: 40px;
+          }
+          .v-popover-inner {
+            background-color: white;
+          }
         }
 
         .home-card-image {
