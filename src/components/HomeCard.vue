@@ -19,9 +19,9 @@
         <template v-for="(tag, index) in post._embedded['wp:term'][1]">
           <v-popover
             offset="16"
-            placement="right"
+            placement="auto"
             hideOnTargetClick="false"
-            :delay="{show:100,hide:3000}"
+            :delay="{show:1000,hide:1000}"
             :key="index"
             v-if="tag.name === 'starter'"
           >
@@ -31,11 +31,8 @@
               alt="starter icon"
             />
             <template slot="popover">
-              <h3 v-html="post.title.rendered"></h3>
-              <p><span v-html="post.title.rendered"></span> is part of Sour Screen's start list</p>
-              <router-link :to="{ name: 'Post', params: { id: 23 } }">
-                <p>Read the full list of starter movies here.</p>
-              </router-link>
+              <img :src="starterIcon" alt="icon representing starter movies">
+              <p>Movies with this icon are considered must-watch bad movies.</p>
             </template>
           </v-popover>
         </template>
@@ -79,9 +76,6 @@ export default {
     starterIcon() {
       return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/starter-icon.svg`;
     },
-    iconHover() {
-      return this.$store.state.iconHover;
-    },
   },
   methods: {
     revealTooltip(event) {
@@ -107,6 +101,12 @@ $color-lightblue: #b1bbed;
 .tooltip.popover {
   background-color: white;
   padding:3%;
+
+  img{
+    width:20px;
+    display:block;
+    margin:auto;
+  }
 }
 
 .home-card-container {
