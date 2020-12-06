@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container">
+  <div class="w-screen py-36 h-screen">
     <section id="home-banner-container">
       <HomeBanner />
     </section>
