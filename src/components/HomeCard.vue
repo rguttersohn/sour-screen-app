@@ -4,7 +4,7 @@
     @mouseleave.native="mousedOver = false"
     :to="{ name: 'Post', params: { id: post.id } }"
   >
-    <div class="home-card">
+    <div class="border-4 rounded-2xl border-red-light hover:border-red-main">
       <div class="home-card-upper">
         <img
           class="home-card-image"
@@ -109,11 +109,7 @@ $color-lightblue: #b1bbed;
   }
 }
 
-.home-card-container {
-  width: 30%;
-  background-color: white;
-  border: 5px solid $color-blue;
-  border-radius: 15px;
+
 
   a {
     text-decoration: none;
@@ -182,5 +178,5 @@ $color-lightblue: #b1bbed;
       }
     }
   }
-}
+
 </style>

@@ -7,10 +7,10 @@
         our ultimate list of movies sure to make you chuckle.
       </h3>
       <router-link
-        class="home-banner-button bg-red-main p-8 rounded-xl"
+        class="banner-button banner-button-position"
         :to="{ name: 'Post', params: { id: 23 } }"
       >
-        <img class="w-5" :src="getStartedIcon" alt="icon for getting started" />
+      <h2 class="font-mono text-white font-bold">Start here</h2>
       </router-link>
     </div>
   </div>
@@ -27,10 +27,6 @@ export default {
 </script>
 
 <style lang="scss">
-$color-red: #ff3333;
-$color-blue: #0099cc;
-$color-lightred: #ffe7ff;
-$color-lightblue: #b1bbed;
 
 .home-banner {
   background: url(https://www.api-sourscreen.com/wp-content/uploads/2020/11/the-room.jpg);
@@ -47,13 +43,9 @@ $color-lightblue: #b1bbed;
       top: 10rem;
     }
 
-    .home-banner-button {
+    .banner-button-position {
       position: absolute;
       top: 15rem;
-
-      img{
-        width:10rem
-      }
     }
   }
 }

@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import VTooltip from 'v-tooltip'
 import '@/assets/css/tailwind.css'
+
  
 Vue.use(VTooltip)
 

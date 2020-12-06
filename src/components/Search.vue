@@ -80,7 +80,7 @@ $color-lightblue: #b1bbed;
     width: 100%;
     input {
       width: 100%;
-      padding: 12px 20px;
+      padding:5% 3% 7%;
       margin: 8px 0;
       display: inline-block;
       border: 3px solid $color-blue;
@@ -91,13 +91,7 @@ $color-lightblue: #b1bbed;
       outline: none;
     }
     ::placeholder {
-      color: $color-blue;
-      font-family: Oswald;
-      font-size: 24px;
-      font-style: normal;
       font-variant: normal;
-      font-weight: bold;
-      text-transform: uppercase;
     }
     text-area{
       font-family:inherit;

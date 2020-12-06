@@ -1,18 +1,45 @@
 <template>
-  <div id="nav" class="h-36 w-screen flex justify-center items-center shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main">
-    <div class="w-9/12 my-3 h-3/12 flex justify-between items-center">
+  <nav
+    id="nav"
+    class="lg:h-36 h-24 w-screen flex  justify-evenly items-start shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main transition duration-300 ease-in-out"
+    :class="{'h-auto':navActivated}"
+  >
+    <div
+      class="w-9/12 my-3 h-3/12 flex lg:flex-row flex-col lg:justify-between lg:items-center"
+    >
       <div class="logo-container">
         <router-link to="/">
           <img :src="logoURL" alt="sour screen logo" />
         </router-link>
       </div>
-      <div class="w-8/12 flex justify-evenly items-center">
+      <div
+        class="w-8/12 flex justify-evenly lg:flex-row flex-col items-center lg:h-auto h-0 overflow-hidden transition duration-300 ease-in-out"
+        :class="{ 'h-full': navActivated }"
+
+      >
         <router-link to="/database"><h2>Database</h2></router-link>
         <router-link to="/list"><h2>List</h2></router-link>
         <Search />
       </div>
     </div>
-  </div>
+    <svg
+      @click="activateNav"
+      class="feather feather-menu cursor-pointer lg:hidden mt-12"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </nav>
 </template>
 
 <script>
@@ -21,18 +48,23 @@ export default {
   components: {
     Search,
   },
+  data() {
+    return {
+      navActivated: false,
+    };
+  },
   computed: {
     logoURL() {
       return `${this.$store.state.baseHostURL}/wp-content/uploads/2020/12/sour_screen_logo-animated-v2.svg`;
+    },
+  },
+  methods: {
+    activateNav() {
+      this.navActivated === false ? this.navActivated = true : this.navActivated = false
     },
   },
 };
 </script>
 
 <style lang="scss">
-$color-red: #ff3333;
-$color-blue: #0099cc;
-$color-lightred: #ffe7ff;
-$color-lightblue: #b1bbed;
-
 </style>
