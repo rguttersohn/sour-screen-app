@@ -17,8 +17,8 @@
         :class="{ 'h-full': navActivated }"
 
       >
-        <router-link to="/database"><h2>Database</h2></router-link>
-        <router-link to="/list"><h2>List</h2></router-link>
+        <router-link @click.native="activateNav" to="/database"><h2>Database</h2></router-link>
+        <router-link @click.native="activateNav" to="/list"><h2>List</h2></router-link>
         <Search />
       </div>
     </div>
