@@ -4,10 +4,10 @@
     @mouseleave.native="mousedOver = false"
     :to="{ name: 'Post', params: { id: post.id } }"
   >
-    <div class="border-4 rounded-2xl border-red-light hover:border-red-main">
-      <div class="home-card-upper">
+    <div class="border-4 rounded-2xl border-red-light hover:border-red-main overflow-hidden h-96">
+      <div class="h-2/4 overflow-hidden">
         <img
-          class="home-card-image"
+          class="object-cover w-full"
           v-if="
             post._embedded['wp:featuredmedia'][0].media_details.sizes
               .medium_large !== undefined
@@ -15,7 +15,7 @@
           :src="postImageML"
           alt=""
         />
-        <img class="home-card-image" v-else :src="postImage" alt="" />
+        <img class="object-cover w-full" v-else :src="postImage" alt="" />
         <template v-for="(tag, index) in post._embedded['wp:term'][1]">
           <v-popover
             offset="16"
@@ -37,12 +37,14 @@
           </v-popover>
         </template>
       </div>
-      <div class="home-card-lower">
-        <h2 v-html="post.title.rendered"></h2>
-        <p v-html="post.excerpt.rendered"></p>
+      <div class="h-2/4 p-3 bg-white relative">
+        <h2 
+        class="text-blue-main"
+        v-html="post.title.rendered"></h2>
+        <h4 v-html="post.excerpt.rendered"></h4>
         <img
-          v-if="mousedOver"
-          class="play-icon-container"
+          class="w-24 absolute  top-28"
+          :class="mousedOver ? 'block' : 'hidden'"
           :src="readIcon"
           alt="read icon"
         />
@@ -93,10 +95,6 @@ export default {
 </script>
 
 <style lang='scss'>
-$color-red: #ff3333;
-$color-blue: #0099cc;
-$color-lightred: #ffe7ff;
-$color-lightblue: #b1bbed;
 
 .tooltip.popover {
   background-color: white;
@@ -108,75 +106,5 @@ $color-lightblue: #b1bbed;
     margin:auto;
   }
 }
-
-
-
-  a {
-    text-decoration: none;
-    .home-card {
-      width: 100%;
-      height: 25rem;
-      margin: 3% 1%;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: border-color 0.3s ease-in-out;
-      border: 5px solid $color-lightblue;
-      border-radius: 15px;
-
-      &:hover,
-      &:active,
-      &:focus {
-        border-color: $color-red;
-      }
-
-      .home-card-upper {
-        position: relative;
-
-        .v-popover {
-          position: absolute;
-          right: 10px;
-          bottom: 190px;
-
-          .starter-icon {
-            width: 40px;
-          }
-          .v-popover-inner {
-            background-color: white;
-          }
-        }
-
-        .home-card-image {
-          width: 100%;
-          height: 250px;
-          object-fit: cover;
-          object-position: 0 10%;
-          transform: scale(1.1, 1.1);
-        }
-      }
-
-      .home-card-lower {
-        padding: 3%;
-        background-color: white;
-        height: 100rem;
-        position: relative;
-
-        h2,
-        p {
-          margin: 0 0 2%;
-        }
-        h2 {
-          text-align: left;
-          color: $color-red;
-        }
-        .play-icon-container {
-          display: block;
-          position: absolute;
-          height: 50%;
-          top: 90px;
-        }
-      }
-    }
-  }
 
 </style>
