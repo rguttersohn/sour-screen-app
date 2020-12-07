@@ -48,7 +48,7 @@
 @layer utilities {
   @variants responsive {
     .section-height {
-      height: 40rem;
+      height: auto;
     }
 
     .home-card-height {
