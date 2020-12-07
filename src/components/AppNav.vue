@@ -13,7 +13,7 @@
         </router-link>
       </div>
       <div
-        class="w-8/12 flex justify-evenly lg:flex-row flex-col items-center lg:h-auto h-0 overflow-hidden transition duration-300 ease-in-out"
+        class="w-8/12 m-auto flex lg:justify-evenly lg:flex-row flex-col items-center justify-center lg:h-auto h-0 overflow-hidden transition duration-300 ease-in-out"
         :class="{ 'h-full': navActivated }"
 
       >

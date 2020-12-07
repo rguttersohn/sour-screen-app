@@ -1,48 +1,61 @@
 @tailwind base;
 
-@layer base{
-    h1{
-        @apply text-4xl lg:text-6xl font-black;
-    }
-    h2{
-        @apply text-xl lg:text-3xl font-extrabold
-    }
+@layer base {
+  h1 {
+    @apply text-4xl lg:text-6xl font-black;
+  }
+  h2 {
+    @apply text-xl lg:text-3xl font-extrabold;
+  }
 
-    h3{
-        @apply  text-base lg:text-xl font-light;
-    }
+  h3 {
+    @apply text-base lg:text-xl font-light;
+  }
 
-    a h2{
-        @apply text-base lg:text-3xl no-underline uppercase font-extrabold text-blue-light transition duration-300 ease-out hover:underline; 
-    }
+  a h2 {
+    @apply text-base lg:text-3xl no-underline uppercase font-extrabold text-blue-light transition duration-300 ease-out hover:underline;
+  }
 
-    h4{
-        @apply font-light text-lg
-    }
+  h4 {
+    @apply font-light text-lg;
+  }
 
-    p{
-        @apply font-normal text-base
-    }
+  p {
+    @apply font-normal text-base;
+  }
 
-    input::placeholder{
-        @apply  text-base lg:text-3xl no-underline uppercase font-extrabold text-blue-light transition duration-300 ease-out hover:underline text-center;
-    }
+  input::placeholder {
+    @apply text-base lg:text-3xl no-underline uppercase font-extrabold text-blue-light transition duration-300 ease-out hover:underline text-center;
+  }
 
-    a{
-        @apply no-underline
-    }
-
+  a {
+    @apply no-underline;
+  }
 }
 
 @tailwind components;
 
-@layer components{
-    .banner-button{
-        @apply transition duration-300 w-auto ease-in-out bg-red-main p-3 lg:p-8 rounded-xl hover:bg-blue-main inline-block
-    }
-    .banner-button h2{
-        @apply font-mono text-white font-bold;
-    }
+@layer components {
+  .banner-button {
+    @apply transition duration-300 w-auto ease-in-out bg-red-main p-3 lg:p-8 rounded-xl hover:bg-blue-main inline-block;
+  }
+  .banner-button h2 {
+    @apply font-mono text-white font-bold;
+  }
 }
 @tailwind utilities;
 
+@layer utilities {
+  @variants responsive {
+    .section-height {
+      height: 40rem;
+    }
+
+    .home-card-height {
+      height: 30rem;
+    }
+    .top-70{
+        top:70%
+    }
+  }
+}
