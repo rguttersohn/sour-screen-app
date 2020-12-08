@@ -7,7 +7,7 @@
     <div
       class="w-9/12 my-3 h-3/12 flex lg:flex-row flex-col lg:justify-between lg:items-center"
     >
-      <div @click="activateNav" class="logo-container">
+      <div @click="navActivated=false" class="logo-container">
         <router-link to="/">
           <img :src="logoURL" alt="sour screen logo" />
         </router-link>
