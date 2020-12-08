@@ -6,12 +6,9 @@
   >
     <div class="border-4 rounded-2xl border-red-light hover:border-red-main overflow-hidden md:home-card-height h-96" >
       <!-- upper card -->
-      <div class="h-2/4 overflow-hidden relative">
-        <img
-          class="object-cover"
-          :src="postImage"
-          alt=""
-        />
+      <div class="h-2/4 bg-cover bg-top"
+      :style="{backgroundImage:`url(${postImage})`}"
+      >
       </div>
       <!-- lower card -->
       <div class="h-2/4 p-3 bg-white relative">
@@ -20,7 +17,7 @@
         v-html="post.title.rendered"></h2>
         <h4 v-html="post.excerpt.rendered"></h4>
         <img
-          class="w-24 absolute top-70"
+          class="w-24"
           :class="mousedOver ? 'block' : 'hidden'"
           :src="readIcon"
           alt="read icon"

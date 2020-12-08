@@ -1,14 +1,28 @@
 <template>
   <router-link :to="{ name: 'Post', params: { id: post.id } }">
-    <div class="post-card">
-      <div>
-        <img v-if="post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large !== undefined" :src="postImageML" alt="" />
-        <img v-else :src="postImage" :alt="post._embedded['wp:featuredmedia'][0].alt">
+    <div
+      class="h-96 bg-cover bg-center relative"
+      :style="{ backgroundImage: `url(${postImage})` }"
+    >
+      <div class="absolute top-48 py-3 px-3 bg-gray-400 bg-opacity-50">
+        <h2 class="text-white" v-html="post.title.rendered"></h2>
       </div>
-      <div>
-        <h2 v-html="post.title.rendered"></h2>
-        <p v-html="post.excerpt.rendered"></p>
-      </div>
+      <template v-for="(tag, index) in post._embedded['wp:term'][1]">
+        <v-popover
+          offset="16"
+          placement="auto"
+          hideOnTargetClick="false"
+          :delay="{ show: 300, hide: 300 }"
+          :key="index"
+          v-if="tag.name === 'starter'"
+        >
+          <img class="tooltip-target" :src="starterIcon" alt="starter icon" />
+          <template slot="popover">
+            <img :src="starterIcon" alt="icon representing starter movies" />
+            <p>Movies with this icon are considered must-watch bad movies.</p>
+          </template>
+        </v-popover>
+      </template>
     </div>
   </router-link>
 </template>
@@ -23,51 +37,42 @@ export default {
       image: "",
     };
   },
-  computed:{
-    postImageML(){
-      return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url
+  computed: {
+    postImage() {
+      return this.post.jetpack_featured_media_url;
     },
-    postImage(){
-      return this.post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url
-    }
-  }
+    starterIcon() {
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/pixel-popcorn.svg`;
+    },
+  },
 };
 </script>
 
 <style lang='scss'>
-$color-red: #ff3333;
-$color-blue: #0099cc;
-$color-lightred: #ffe7ff;
-$color-lightblue: #b1bbed;
-
-.post-card {
-  border: 5px solid $color-lightblue;
-  border-radius: 15px;
-  width: 33%;
-  margin: 3% auto;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: border-color 0.3s ease-in-out;
-
-  a {
-    text-decoration: none;
+#database-list, #lists-list {
+  .v-popover {
+    position: absolute;
+    bottom: 9rem;
+    left: 90%;
+    z-index: 40;
   }
 
-  &:hover {
-    border-color: $color-lightred;
+  .tooltip-target {
+    width: 40px;
+    max-width: inherit;
   }
 
-  div img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    object-position: 0 10%;
-  }
-  div {
-    h2,
-    p {
-      text-decoration: none;
+  .tooltip.popover {
+    background-color: white;
+    padding: 3%;
+    width: 20em;
+    border-radius: 15px;
+    border: 3px solid #0099dd;
+
+    img {
+      width: 5em;
+      display: block;
+      margin: 3% auto;
     }
   }
 }
