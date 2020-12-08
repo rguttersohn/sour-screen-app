@@ -42,7 +42,7 @@ export default {
       return this.post.jetpack_featured_media_url;
     },
     starterIcon() {
-      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/pixel-popcorn.svg`;
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/favorite-icon.svg`;
     },
   },
 };

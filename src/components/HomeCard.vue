@@ -65,7 +65,7 @@ export default {
       return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/read-icon-red.svg`;
     },
     starterIcon() {
-      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/pixel-popcorn.svg`;
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/favorite-icon.svg`;
     },
   },
   methods: {

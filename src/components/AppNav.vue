@@ -1,7 +1,7 @@
 <template>
   <nav
     id="nav"
-    class="lg:h-36 h-24 w-screen flex  justify-evenly items-start shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main transition duration-300 ease-in-out"
+    class="lg:h-36 h-24 w-screen flex justify-evenly items-start shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main transition duration-300 ease-in-out"
     :class="{'h-auto':navActivated}"
   >
     <div
@@ -24,11 +24,11 @@
     </div>
     <svg
       @click="activateNav"
-      class="feather feather-menu cursor-pointer lg:hidden  mt-9"
+      class="feather feather-menu cursor-pointer lg:hidden mt-7"
       xmlns="http://www.w3.org/2000/svg"
-      width="100"
-      height="100"
-      viewBox="0 0 48 48"
+      width="60"
+      height="60"
+      viewBox="0 0 30 30"
       fill="none"
       stroke="currentColor"
       stroke-width="2"
@@ -40,10 +40,10 @@
       x1="3" y1="12" x2="21" y2="12"></line>
       <line 
        class="stroke-current text-blue-main"
-      x1="3" y1="6" x2="21" y2="6"></line>
+      x1="3" y1="8" x2="21" y2="8"></line>
       <line 
        class="stroke-current text-blue-main"
-      x1="3" y1="18" x2="21" y2="18"></line>
+      x1="3" y1="16" x2="21" y2="16"></line>
     </svg>
   </nav>
 </template>
@@ -73,4 +73,5 @@ export default {
 </script>
 
 <style lang="scss">
+
 </style>

@@ -42,6 +42,10 @@
   .banner-button h2 {
     @apply font-mono text-white font-bold;
   }
+
+  .router-link-exact-active.router-link-active h2{
+    @apply text-red-main
+  }
 }
 @tailwind utilities;
 
