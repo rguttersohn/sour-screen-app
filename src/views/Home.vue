@@ -80,10 +80,11 @@ export default {
 <style lang="scss">
 
 .home-card-container{
-  @apply flex justify-evenly flex-col lg:flex-row w-full md:w-3/4 m-auto
+  @apply flex justify-evenly flex-col md:content-center md:flex-wrap md:flex-row w-full md:w-3/4 m-auto lg:flex-nowrap
 }
 
 .home-card-item{
-  @apply flex-1 mx-5 md:mx-20 lg:mx-5
+  @apply flex-1 mx-5 my-3 md:mx-20  md:flex-grow lg:mx-5 lg:my-0
 }
+
 </style>
