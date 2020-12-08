@@ -1,7 +1,7 @@
 <template>
   <nav
     id="nav"
-    class="lg:h-36 h-24 my-3 w-screen flex  justify-evenly items-start shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main transition duration-300 ease-in-out"
+    class="lg:h-36 h-24 w-screen flex  justify-evenly items-start shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main transition duration-300 ease-in-out"
     :class="{'h-auto':navActivated}"
   >
     <div
@@ -24,20 +24,26 @@
     </div>
     <svg
       @click="activateNav"
-      class="feather feather-menu cursor-pointer lg:hidden mt-12"
+      class="feather feather-menu cursor-pointer lg:hidden  mt-9"
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="100"
+      height="100"
+      viewBox="0 0 48 48"
       fill="none"
       stroke="currentColor"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      <line x1="3" y1="12" x2="21" y2="12"></line>
-      <line x1="3" y1="6" x2="21" y2="6"></line>
-      <line x1="3" y1="18" x2="21" y2="18"></line>
+      <line 
+       class="stroke-current text-red-main"
+      x1="3" y1="12" x2="21" y2="12"></line>
+      <line 
+       class="stroke-current text-blue-main"
+      x1="3" y1="6" x2="21" y2="6"></line>
+      <line 
+       class="stroke-current text-blue-main"
+      x1="3" y1="18" x2="21" y2="18"></line>
     </svg>
   </nav>
 </template>
