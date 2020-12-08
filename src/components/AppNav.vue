@@ -1,13 +1,13 @@
 <template>
   <nav
     id="nav"
-    class="lg:h-36 h-24 w-screen flex  justify-evenly items-start shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main transition duration-300 ease-in-out"
+    class="lg:h-36 h-24 my-3 w-screen flex  justify-evenly items-start shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main transition duration-300 ease-in-out"
     :class="{'h-auto':navActivated}"
   >
     <div
-      class="w-9/12 my-3 h-3/12 flex lg:flex-row flex-col lg:justify-between lg:items-center"
+      class="w-9/12  my-3 h-3/12 flex lg:flex-row flex-col lg:justify-between lg:items-center"
     >
-      <div @click="navActivated=false" class="logo-container">
+      <div @click="navActivated=false" class="">
         <router-link to="/">
           <img :src="logoURL" alt="sour screen logo" />
         </router-link>
@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     logoURL() {
-      return `${this.$store.state.baseHostURL}/wp-content/uploads/2020/12/sour_screen_logo-animated-v2.svg`;
+      return `${this.$store.state.baseHostURL}/wp-content/uploads/2020/12/sour_screen_logo-animated-v3.svg`;
     },
   },
   methods: {
