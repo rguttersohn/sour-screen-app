@@ -14,7 +14,7 @@
           
       </div>
     </section>
-    <section id="new-lists-section" class="w-screen my-5 lg:section-height">
+    <section id="new-lists-section" class="w-screen my-5">
       <div class="new-movies-container bg-blue-xLight py-6 w-screen h-full">
         <h1 class="text-center lg:text-right lg:mr-52 my-5 text-blue-main">
           Our latest lists:
@@ -25,7 +25,7 @@
         >
          <!-- flex item -->
           <div
-             class="home-card-item"
+            class="home-card-item"
             v-for="list in newLists"
             :key="list.id"
           >
@@ -34,7 +34,7 @@
         </div>
       </div>
     </section>
-    <section id="new-movies-section" class="w-screen my-5 lg:section-height">
+    <section id="new-movies-section" class="w-screen my-5">
       <div class="new-movies-container bg-red-xLight py-6 w-screen h-full">
         <h1
           class="text-red-main text-center lg:text-left lg:ml-52 my-5 relative"
@@ -80,11 +80,29 @@ export default {
 <style lang="scss">
 
 .home-card-container{
-  @apply flex justify-evenly flex-col md:content-center md:flex-wrap md:flex-row w-full md:w-3/4 m-auto lg:flex-nowrap
+  @apply grid grid-cols-6 grid-rows-2 lg:grid-rows-1 gap-4 my-5 mx-5 md:mx-16
 }
 
 .home-card-item{
-  @apply flex-1 mx-5 my-3 md:mx-20  md:flex-grow lg:mx-5 lg:my-0
+  @apply col-span-6
+}
+
+.home-card-item:nth-child(1){
+  md:col-start-1
+}
+
+.home-card-item:nth-child(2){
+  md:col-start-3
+}
+
+
+.home-card-item:nth-child(1),.home-card-item:nth-child(2){
+@apply md:col-span-3 lg:col-span-2
+}
+
+.home-card-item:nth-child(3){
+  @apply md:col-span-6 lg:col-span-2 lg:col-start-5
+  
 }
 
 </style>
