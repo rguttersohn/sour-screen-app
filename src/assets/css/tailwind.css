@@ -43,8 +43,36 @@
     @apply font-mono text-white font-bold;
   }
 
-  .router-link-exact-active.router-link-active h2{
-    @apply text-red-main
+  .router-link-exact-active.router-link-active h2 {
+    @apply text-red-main;
+  }
+
+  #intro-section .excerpt p{
+    @apply text-xl
+  }
+
+  .post-content-container {
+    @apply w-full;
+  }
+
+  .post-content-container p{
+    @apply w-full  m-auto my-3
+  }
+
+  .post-content-container p:first-of-type{
+    @apply mt-12
+  }
+
+  .wp-block-quote {
+    @apply bg-black text-white font-mono p-5 w-3/4 mx-auto my-12;
+  }
+
+  .wp-block-quote p{
+    @apply text-2xl
+  }
+
+  .wp-block-quote cite{
+    @apply text-red-main text-3xl
   }
 }
 @tailwind utilities;
@@ -58,8 +86,8 @@
     .home-card-height {
       height: 30rem;
     }
-    .top-70{
-        top:70%
+    .top-70 {
+      top: 70%;
     }
   }
 }
