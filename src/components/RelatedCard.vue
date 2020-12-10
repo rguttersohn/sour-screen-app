@@ -1,30 +1,33 @@
 <template>
   <router-link :to="{ name: 'Post', params: { id: post.id } }">
-    <div class="related-card">
-      <div>
-        <img
-          v-if="
-            post._embedded['wp:featuredmedia'][0].media_details.sizes
-              .medium_large !== undefined
-          "
-          :src="postImageML"
-          alt=""
-        />
-        <img v-else :src="postImage" alt="" />
-        <template v-for="(tag, index) in post._embedded['wp:term'][1]">
-          <img
-            class="starter-icon"
-            v-if="tag.name === 'starter'"
-            :key="index"
-            :src="starterIcon"
-            alt="starter icon"
-          />
-        </template>
+    <div class="related-card overflow-hidden md:w-64 lg:w-full lg:my-3">
+      <div
+        class="h-72 bg-cover border-4 rounded-xl border-blue-light hover:border-red-light relative md:w-64 lg:w-full"
+        :style="{ backgroundImage: `url(${postImage})` }"
+      >
+        <h2
+          class="text-center absolute top-56 text-white p-5 bg-gray-400 bg-opacity-50 md:hidden"
+          v-html="post.title.rendered"
+        ></h2>
+              <template v-for="(tag, index) in post._embedded['wp:term'][1]">
+        <v-popover
+          offset="16"
+          placement="auto"
+          hideOnTargetClick="false"
+          :delay="{ show: 300, hide: 300 }"
+          :key="index"
+          v-if="tag.name === 'starter'"
+        >
+          <img class="tooltip-target" :src="starterIcon" alt="starter icon" />
+          <template slot="popover">
+            <img :src="starterIcon" alt="icon representing starter movies" />
+            <p>Movies with this icon are considered must-watch bad movies.</p>
+          </template>
+        </v-popover>
+      </template>
       </div>
-      <div>
-        <h2 v-html="post.title.rendered"></h2>
-        <p v-html="post.excerpt.rendered"></p>
-      </div>
+      <h3 class="hidden md:block text-center" v-html="post.title.rendered + ':' + post.excerpt.rendered"></h3>
+      <h2 class=" md:hidden text-left text-blue-main" v-html="post.excerpt.rendered"></h2>
     </div>
   </router-link>
 </template>
@@ -35,68 +38,39 @@ export default {
     post: Object,
   },
   computed: {
-    postImageML() {
-      return this.post._embedded["wp:featuredmedia"][0].media_details.sizes
-        .medium_large.source_url;
-    },
     postImage() {
-      return this.post._embedded["wp:featuredmedia"][0].media_details.sizes.full
-        .source_url;
+      return this.post.jetpack_featured_media_url;
     },
     starterIcon() {
-      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/starter-icon.svg`;
+      return `${this.$store.state.baseHostURL}wp-content/uploads/2020/12/favorite-icon.svg`;
     },
   },
 };
 </script>
 
 <style lang='scss'>
-$color-red: #ff3333;
-$color-blue: #0099cc;
-$color-lightred: #ffe7ff;
-$color-lightblue: #b1bbed;
 
-.related-content-container {
-  .related-card {
-    border: 5px solid $color-lightblue;
+.related-card {
+  .v-popover {
+    z-index: 40;
+  }
+
+  .tooltip-target {
+    width: 40px;
+    max-width: inherit;
+  }
+
+  .tooltip.popover {
+    background-color: white;
+    padding: 3%;
+    width: 20em;
     border-radius: 15px;
-    width: 400px;
-    height: 200px;
-    margin: 3% 1%;
-    display: flex;
-    justify-content: space-between;
-    overflow: hidden;
-    transition: border-color 0.3s ease-in-out;
+    border: 3px solid #0099dd;
 
-    a {
-      text-decoration: none;
-    }
-
-    &:hover {
-      border-color: $color-lightred;
-    }
-
-    div {
-      position:relative;
-
-
-      .starter-icon{
-        position:absolute;
-        bottom:10rem;
-      }
-
-      div img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        object-position: 30% 10%;
-      }
-      div {
-        h2,
-        p {
-          text-decoration: none;
-        }
-      }
+    img {
+      width: 5em;
+      display: block;
+      margin: 3% auto;
     }
   }
 }

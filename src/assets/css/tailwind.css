@@ -16,6 +16,14 @@
     @apply text-base lg:text-3xl no-underline uppercase font-extrabold text-blue-light transition duration-300 ease-out hover:underline;
   }
 
+  a h3 {
+    @apply text-base lg:text-xl font-light;
+  }
+
+  a h4 {
+    @apply font-light text-lg;
+  }
+
   h4 {
     @apply font-light text-lg;
   }
