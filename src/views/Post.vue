@@ -2,27 +2,36 @@
   <div class="w-screen lg:py-36 py-24">
     <section class="w-full" id="intro-section" v-if="currentPost !== ''">
       <div class="w-9/12 m-auto">
-        <div class="flex   justify-start items-center">
+        <div class="flex justify-start items-center">
           <h1
             v-html="currentPost.title.rendered"
             class="text-red-light mb-6 mr-5"
           ></h1>
-                <template v-for="(tag, index) in currentPost._embedded['wp:term'][1]">
-        <v-popover
-          offset="16"
-          placement="auto"
-          hideOnTargetClick="false"
-          :delay="{ show: 300, hide: 300 }"
-          :key="index"
-          v-if="tag.name === 'starter'"
-        >
-          <img class="tooltip-target" :src="starterIcon" alt="starter icon" />
-          <template slot="popover">
-            <img :src="starterIcon" alt="icon representing starter movies" />
-            <p>Movies with this icon are considered must-watch bad movies.</p>
+          <template v-for="(tag, index) in currentPost._embedded['wp:term'][1]">
+            <v-popover
+              offset="16"
+              placement="auto"
+              hideOnTargetClick="false"
+              :delay="{ show: 300, hide: 300 }"
+              :key="index"
+              v-if="tag.name === 'starter'"
+            >
+              <img
+                class="tooltip-target"
+                :src="starterIcon"
+                alt="starter icon"
+              />
+              <template slot="popover">
+                <img
+                  :src="starterIcon"
+                  alt="icon representing starter movies"
+                />
+                <p>
+                  Movies with this icon are considered must-watch bad movies.
+                </p>
+              </template>
+            </v-popover>
           </template>
-        </v-popover>
-      </template>
         </div>
         <div class="mb-6 excerpt" v-html="currentPost.excerpt.rendered"></div>
       </div>
@@ -42,15 +51,17 @@
       <section
         class="m-auto w-full col-start-1 col-span-6 lg:col-start-5 lg:col-span-2 lg:row-span-2"
       >
-        <h2 class="text-blue-light border-t-4 border-blue-light text-center">Related Content:</h2>
-        <h4 
-        class="text-center"
-        v-if="currentPost.title !== undefined">
+        <h2 class="text-blue-light border-t-4 border-blue-light text-center">
+          Related Content:
+        </h2>
+        <h4 class="text-center" v-if="currentPost.title !== undefined">
           If you enjoyed {{ currentPost.title.rendered }}, we think you'll like:
         </h4>
-        <div class="flex flex-col md:flex-row md:justify-center md:flex-wrap lg:flex-col">
+        <div
+          class="flex flex-col md:flex-row md:justify-center md:flex-wrap lg:flex-col"
+        >
           <div
-            class=" md:m-3 lg:my-auto"
+            class="md:m-3 lg:my-auto"
             v-for="relatedPost in relatedPosts"
             :key="relatedPost.id"
             :data-id="relatedPost.id"
@@ -71,9 +82,7 @@ export default {
   components: { RelatedCard },
   data() {
     return {
-      currentPost: "",
       id: this.$route.params.id,
-      relatedPosts: [],
     };
   },
   computed: {
@@ -86,58 +95,17 @@ export default {
     ...mapState({
       baseAPIURL: (state) => state.baseAPIURL,
       posts: (state) => state.posts,
+      currentPost: (state) => state.currentPost,
+      relatedPosts: (state) => state.relatedPosts,
     }),
   },
   created() {
-    fetch(`${this.baseAPIURL}/posts/${this.id}?_embed`)
-      .then((resp) => resp.json())
-      .then((post) => {
-        this.currentPost = post;
-      });
-  },
-  methods: {
-    pushToRelated() {
-      this.posts.forEach((post) => {
-        post.relatedScore = 0;
-        if (post.id !== this.currentPost.id) {
-          post._embedded["wp:term"][0].forEach((el) => {
-            for (
-              let i = 0;
-              i < this.currentPost._embedded["wp:term"][0].length;
-              i++
-            ) {
-              if (
-                el.name === this.currentPost._embedded["wp:term"][0][i].name
-              ) {
-                post.relatedScore = post.relatedScore + 3;
-              }
-            }
-          });
-          post._embedded["wp:term"][1].forEach((el) => {
-            for (
-              let i = 0;
-              i < this.currentPost._embedded["wp:term"][1].length;
-              i++
-            ) {
-              if (
-                el.name === this.currentPost._embedded["wp:term"][1][i].name
-              ) {
-                post.relatedScore = post.relatedScore + 1;
-              }
-            }
-          });
-        }
-      });
-      this.relatedPosts = this.posts
-        .sort((a, b) => a.relatedScore - b.relatedScore)
-        .reverse()
-        .slice(0, 5);
-    },
+    this.$store.dispatch("getCurrentPost", this.id);
   },
   watch: {
-    currentPost: function () {
-      if (this.posts.length > 0) {
-        this.pushToRelated();
+    currentPost() {
+      if(this.posts.length > 0){
+        this.$store.dispatch('pushToRelated')
       }
     },
   },
@@ -145,10 +113,9 @@ export default {
 </script>
 
 <style lang="scss">
-
 #intro-section {
   .v-popover {
-    position:initial
+    position: initial;
   }
 
   .tooltip-target {
@@ -162,10 +129,10 @@ export default {
     width: 20em;
     border-radius: 15px;
     border: 3px solid #0099dd;
-  
-  .popover-arrow{
-    z-index:99
-  }
+
+    .popover-arrow {
+      z-index: 99;
+    }
 
     img {
       width: 5em;

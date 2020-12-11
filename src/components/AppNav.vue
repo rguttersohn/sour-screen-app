@@ -15,7 +15,6 @@
       <div
         class="w-8/12 m-auto flex lg:justify-evenly lg:flex-row flex-col items-center justify-center lg:h-auto h-0 overflow-hidden transition duration-300 ease-in-out"
         :class="{ 'h-full': navActivated }"
-
       >
         <router-link @click.native="activateNav" to="/database"><h2>Database</h2></router-link>
         <router-link @click.native="activateNav" to="/list"><h2>List</h2></router-link>

@@ -1,55 +1,100 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     baseAPIURL: "https://www.api-sourscreen.com/wp-json/wp/v2",
-    baseHostURL:"https://www.api-sourscreen.com/",
-    posts:[],
-    iconHover:false,
-    iconTooltipX:0,
-    iconTooltipY:0
+    baseHostURL: "https://www.api-sourscreen.com/",
+    posts: [],
+    relatedPosts: [],
+    currentPost: "",
   },
   mutations: {
-    GET_POSTS(state){
+    GET_POSTS(state) {
       fetch(`${state.baseAPIURL}/posts/?_embed&per_page=99`)
-      .then(resp=>resp.json())
-      .then(posts=>{
-        state.posts = posts
-      })
+        .then((resp) => resp.json())
+        .then((posts) => {
+          state.posts = posts;
+        });
     },
-    ICON_HOVER_TRUE(state){
-      state.iconHover = true
+    GET_CURRENT_POST(state, id) {
+      fetch(`${state.baseAPIURL}/posts/${id}?_embed`)
+        .then((resp) => resp.json())
+        .then((post) => {
+          state.currentPost = post;
+        });
     },
-    ICON_HOVER_FALSE(state){
-      state.iconHover = false
+    PUSH_TO_RELATED(state) {
+      state.posts.forEach((post) => {
+        post.relatedScore = 0;
+        if (post.id !== state.currentPost.id) {
+          post._embedded["wp:term"][0].forEach((el) => {
+            for (
+              let i = 0;
+              i < state.currentPost._embedded["wp:term"][0].length;
+              i++
+            ) {
+              if (
+                el.name === state.currentPost._embedded["wp:term"][0][i].name
+              ) {
+                post.relatedScore = post.relatedScore + 3;
+              }
+            }
+          });
+          post._embedded["wp:term"][1].forEach((el) => {
+            for (
+              let i = 0;
+              i < state.currentPost._embedded["wp:term"][1].length;
+              i++
+            ) {
+              if (
+                el.name === state.currentPost._embedded["wp:term"][1][i].name
+              ) {
+                post.relatedScore = post.relatedScore + 1;
+              }
+            }
+          });
+        }
+      });
+      state.relatedPosts = state.posts
+        .sort((a, b) => a.relatedScore - b.relatedScore)
+        .reverse()
+        .slice(0, 5);
     },
-    SET_ICON_TOOLTIP_COORDS(state,{x,y}){
-      state.iconTooltipX = x
-      state.iconTooltipY = y
-    }
   },
   actions: {
-    getPosts(context){
-      context.commit('GET_POSTS')
-    }
+    getPosts(context) {
+      context.commit("GET_POSTS");
+    },
+    pushToRelated(context) {
+        context.commit("PUSH_TO_RELATED");
+      
+    },
+    getCurrentPost(context, id) {
+      context.commit("GET_CURRENT_POST", id);
+    },
   },
-  modules: {
+  modules: {},
+  getters: {
+    movies(state) {
+      return state.posts.filter(
+        (post) =>
+          post.categories[post.categories.findIndex((cat) => cat === 2)] === 2
+      );
+    },
+    lists(state) {
+      return state.posts.filter(
+        (post) =>
+          post.categories[post.categories.findIndex((cat) => cat === 3)] === 3
+      );
+    },
+    newMovies(state, getters) {
+      return getters.movies.slice(0, 3);
+    },
+    newLists(state, getters) {
+      return getters.lists.slice(0, 3);
+    },
   },
-  getters:{
-    movies(state){
-      return state.posts.filter(post=>post.categories[post.categories.findIndex(cat=>cat === 2)] === 2)
-    },
-    lists(state){
-      return state.posts.filter(post=>post.categories[post.categories.findIndex(cat=>cat === 3)] === 3)
-    },
-    newMovies(state, getters){
-      return getters.movies.slice(0,3)
-    },
-    newLists(state,getters){
-      return getters.lists.slice(0,3)
-    }
-  }
-})
+});
