@@ -1,0 +1,15 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-sourscreenapp-dev-161249-authRole",
+      "UnauthRoleArn": "arn:aws:iam::393341212908:role/amplify-sourscreenapp-dev-161249-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::393341212908:role/amplify-sourscreenapp-dev-161249-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-sourscreenapp-dev-161249-deployment",
+      "UnauthRoleName": "amplify-sourscreenapp-dev-161249-unauthRole",
+      "StackName": "amplify-sourscreenapp-dev-161249",
+      "StackId": "arn:aws:cloudformation:us-east-1:393341212908:stack/amplify-sourscreenapp-dev-161249/4e1ee360-30f5-11eb-bc82-0ee5b74c6229",
+      "AmplifyAppId": "d2s98yv92ya4b2"
+    }
+  }
+}

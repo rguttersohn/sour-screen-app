@@ -69,8 +69,7 @@ export default new Vuex.Store({
       context.commit("GET_POSTS");
     },
     pushToRelated(context) {
-        context.commit("PUSH_TO_RELATED");
-      
+      context.commit("PUSH_TO_RELATED");
     },
     getCurrentPost(context, id) {
       context.commit("GET_CURRENT_POST", id);
@@ -95,6 +94,36 @@ export default new Vuex.Store({
     },
     newLists(state, getters) {
       return getters.lists.slice(0, 3);
+    },
+    action(state, getters) {
+      return getters.movies.filter(
+        (movie) =>
+          movie.categories[movie.categories.findIndex((cat) => cat === 7)] === 7
+      );
+    },
+    christmas(state, getters) {
+      return getters.movies.filter(
+        (movie) =>
+          movie.categories[movie.categories.findIndex((cat) => cat === 19)] === 19
+      );
+    },
+    christian(state, getters) {
+      return getters.movies.filter(
+        (movie) =>
+          movie.categories[movie.categories.findIndex((cat) => cat === 6)] === 6
+      );
+    },
+    horror(state, getters) {
+      return getters.movies.filter(
+        (movie) =>
+          movie.categories[movie.categories.findIndex((cat) => cat === 51)] === 51
+      );
+    },
+    sports(state, getters) {
+      return getters.movies.filter(
+        (movie) =>
+          movie.categories[movie.categories.findIndex((cat) => cat === 55)] === 55
+      );
     },
   },
 });
