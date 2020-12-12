@@ -71,6 +71,10 @@
     @apply mt-12
   }
 
+  .post-card{
+    @apply border-4 border-red-main rounded-lg w-full md:w-3/4 m-auto  h-64 my-3 overflow-hidden
+  }
+
   .wp-block-quote {
     @apply bg-black text-white font-mono p-5 w-3/4 mx-auto my-12;
   }

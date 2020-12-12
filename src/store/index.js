@@ -125,5 +125,6 @@ export default new Vuex.Store({
           movie.categories[movie.categories.findIndex((cat) => cat === 55)] === 55
       );
     },
+    
   },
 });
