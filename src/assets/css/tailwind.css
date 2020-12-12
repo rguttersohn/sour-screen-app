@@ -9,7 +9,7 @@
   }
 
   h3 {
-    @apply text-base lg:text-xl font-light;
+    @apply text-base lg:text-xl font-bold;
   }
 
   a h2 {
@@ -17,7 +17,7 @@
   }
 
   a h3 {
-    @apply text-base lg:text-xl font-light;
+    @apply text-base lg:text-xl font-bold;
   }
 
   a h4 {
@@ -72,7 +72,10 @@
   }
 
   .post-card{
-    @apply border-4 border-red-main rounded-lg w-full md:w-3/4 m-auto  h-64 my-3 overflow-hidden
+    @apply border-4 border-red-main rounded-lg w-full md:w-3/4 m-auto  h-64 my-3
+  }
+  .post-card a div{
+    @apply overflow-hidden
   }
 
   .wp-block-quote {

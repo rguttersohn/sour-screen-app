@@ -1,12 +1,9 @@
 <template>
   <router-link :to="{ name: 'Post', params: { id: post.id } }">
     <div
-      class="h-96 bg-cover bg-center relative"
+      class="post-card h-60 bg-cover bg-center relative"
       :style="{ backgroundImage: `url(${postImage})` }"
     >
-      <div class="absolute top-48 py-3 px-3 bg-gray-400 bg-opacity-50">
-        <h2 class="text-white" v-html="post.title.rendered"></h2>
-      </div>
       <template v-for="(tag, index) in post._embedded['wp:term'][1]">
         <v-popover
           offset="16"
@@ -24,6 +21,10 @@
         </v-popover>
       </template>
     </div>
+    <h3 
+    class="text-center"
+    v-html="post.title.rendered" 
+    ></h3>
   </router-link>
 </template>
 
@@ -49,7 +50,48 @@ export default {
 </script>
 
 <style lang='scss'>
-#database-list, #lists-list {
+#database-list {
+  .post-card {
+    width: 250px;
+  }
+
+  .post-card {
+    @apply mx-0;
+    @apply h-60;
+    @apply border;
+  }
+
+  .v-popover {
+    position: absolute;
+    bottom: 0rem;
+    left: 80%;
+    z-index: 40;
+  }
+
+  .tooltip-target {
+    width: 40px;
+    max-width: inherit;
+  }
+
+  .tooltip.popover {
+    background-color: white;
+    padding: 3%;
+    width: 20em;
+    border-radius: 15px;
+    border: 3px solid #0099dd;
+
+    img {
+      width: 5em;
+      display: block;
+      margin: 3% auto;
+    }
+
+    .movie-title {
+    }
+  }
+}
+
+#lists-list {
   .v-popover {
     position: absolute;
     bottom: 9rem;
