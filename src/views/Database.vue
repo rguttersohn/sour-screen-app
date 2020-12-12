@@ -1,10 +1,10 @@
 <template>
   <div class="w-screen py-24 lg:py-36 h-full" id="database-list">
-    <div class=" w-full md:w-11/12 lg:w-3/4 m-auto my-10">
+    <div class="w-full md:w-11/12 lg:w-3/4 m-auto my-10">
       <h1 class="text-center text-red-main my-10">Movies in our database</h1>
       <section id="action-posts">
-        <h2 class="text-center text-blue-main mt-10 mb-5">Action</h2>
-        <div class="flex flex-row overflow-x-scroll post-card-container">
+        <h1 class="text-blue-main mx-10 mt-10 mb-5">Action</h1>
+        <div class="post-card-container">
           <div
             class="flex-shrink-0"
             v-for="movie in action"
@@ -16,7 +16,7 @@
       </section>
       <section id="drama-posts">
         <h2 class="text-center text-blue-main mt-10 mb-5">Drama</h2>
-        <div class="flex flex-row overflow-x-scroll post-card-container">
+        <div class="post-card-container">
           <div
             class="flex-shrink-0"
             v-for="movie in drama"
@@ -28,7 +28,7 @@
       </section>
       <section id="christian-posts">
         <h2 class="text-center text-blue-main mt-10 mb-5">Christian</h2>
-        <div class="flex flex-row overflow-x-scroll post-card-container">
+        <div class="post-card-container">
           <div
             class="flex-shrink-0"
             v-for="movie in christian"
@@ -40,7 +40,7 @@
       </section>
       <section id="horror-posts">
         <h2 class="text-center text-blue-main mt-10 mb-5">Horror</h2>
-        <div class="flex flex-row overflow-x-scroll post-card-container">
+        <div class=" post-card-container">
           <div
             class="flex-shrink-0"
             v-for="movie in horror"
@@ -52,7 +52,7 @@
       </section>
       <section id="sports-posts">
         <h2 class="text-center text-blue-main mt-10 mb-5">Sports</h2>
-        <div class="flex flex-row overflow-x-scroll post-card-container">
+        <div class="post-card-container">
           <div
             class="flex-shrink-0"
             v-for="movie in sports"
@@ -65,7 +65,7 @@
 
       <section id="christmas-posts">
         <h2 class="text-center text-blue-light mt-10 mb-5">Christmas</h2>
-        <div class="flex flex-row overflow-x-scroll post-card-container">
+        <div class="post-card-container">
           <div
             class="flex-shrink-0"
             v-for="movie in christmas"
@@ -100,7 +100,7 @@ export default {
 
 
 .post-card-container {
-  @apply bg-red-xLight shadow-inner h-80 m-auto w-11/12;
+  @apply bg-red-xLight w-full flex flex-row items-center overflow-x-scroll shadow-inner h-80 m-auto w-11/12 px-5;
 }
 
 section{
