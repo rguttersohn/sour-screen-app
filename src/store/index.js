@@ -125,6 +125,12 @@ export default new Vuex.Store({
           movie.categories[movie.categories.findIndex((cat) => cat === 55)] === 55
       );
     },
+    drama(state, getters) {
+      return getters.movies.filter(
+        (movie) =>
+          movie.categories[movie.categories.findIndex((cat) => cat === 5)] === 5
+      );
+    },
     
   },
 });

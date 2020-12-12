@@ -14,6 +14,18 @@
           </div>
         </div>
       </section>
+      <section id="drama-posts">
+        <h2 class="text-center text-blue-main mt-10 mb-5">Drama</h2>
+        <div class="flex flex-row overflow-x-scroll post-card-container">
+          <div
+            class="flex-shrink-0"
+            v-for="movie in drama"
+            :key="movie.id"
+          >
+            <PostCard :post="movie" />
+          </div>
+        </div>
+      </section>
       <section id="christian-posts">
         <h2 class="text-center text-blue-main mt-10 mb-5">Christian</h2>
         <div class="flex flex-row overflow-x-scroll post-card-container">
@@ -79,7 +91,7 @@ export default {
     movies() {
       return this.$store.getters.movies;
     },
-    ...mapGetters(["action", "christian", "christmas", "horror", "sports"]),
+    ...mapGetters(["action", "christian", "christmas", "horror", "sports","drama"]),
   },
 };
 </script>
