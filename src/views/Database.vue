@@ -14,6 +14,7 @@
 
 <script>
 import PostCard from '@/components/PostCard.vue';
+import {mapGetters} from 'vuex'
 export default {
     components:{
         PostCard
@@ -21,7 +22,8 @@ export default {
     computed:{
       movies(){
         return this.$store.getters.movies
-      }
+      },
+      ...mapGetters(["action","christian","christmas","horror","sports"])
     },
 };
 </script>
