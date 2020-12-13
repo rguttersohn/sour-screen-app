@@ -56,7 +56,7 @@ export default {
   }
 
   .post-card {
-    @apply mx-0;
+    @apply mx-2;
     @apply h-60;
     @apply border;
   }
@@ -84,9 +84,6 @@ export default {
       width: 5em;
       display: block;
       margin: 3% auto;
-    }
-
-    .movie-title {
     }
   }
 }

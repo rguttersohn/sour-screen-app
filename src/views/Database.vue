@@ -3,7 +3,7 @@
     <div class="w-full md:w-11/12 lg:w-3/4 m-auto my-10">
       <h1 class="text-center text-red-main my-10">Movies in our database</h1>
       <section id="action-posts">
-        <h1 class="text-blue-main mx-10 mt-10 mb-5">Action</h1>
+        <h1 class="text-blue-main mt-10 mb-5">Action</h1>
         <div class="post-card-container">
           <div
             class="flex-shrink-0"
@@ -15,7 +15,7 @@
         </div>
       </section>
       <section id="drama-posts">
-        <h2 class="text-center text-blue-main mt-10 mb-5">Drama</h2>
+        <h1 class="text-blue-main mt-10 mb-5">Drama</h1>
         <div class="post-card-container">
           <div
             class="flex-shrink-0"
@@ -27,7 +27,7 @@
         </div>
       </section>
       <section id="christian-posts">
-        <h2 class="text-center text-blue-main mt-10 mb-5">Christian</h2>
+        <h1 class="text-blue-main mt-10 mb-5">Christian</h1>
         <div class="post-card-container">
           <div
             class="flex-shrink-0"
@@ -39,7 +39,7 @@
         </div>
       </section>
       <section id="horror-posts">
-        <h2 class="text-center text-blue-main mt-10 mb-5">Horror</h2>
+        <h1 class="text-blue-main mt-10 mb-5">Horror</h1>
         <div class=" post-card-container">
           <div
             class="flex-shrink-0"
@@ -51,11 +51,11 @@
         </div>
       </section>
       <section id="sports-posts">
-        <h2 class="text-center text-blue-main mt-10 mb-5">Sports</h2>
+        <h1 class="text-blue-main mt-10 mb-5">Disney Channel Originals</h1>
         <div class="post-card-container">
           <div
             class="flex-shrink-0"
-            v-for="movie in sports"
+            v-for="movie in disneyChannel"
             :key="movie.id"
           >
             <PostCard :post="movie" />
@@ -64,7 +64,7 @@
       </section>
 
       <section id="christmas-posts">
-        <h2 class="text-center text-blue-light mt-10 mb-5">Christmas</h2>
+        <h1 class="text-blue-main mt-10 mb-5">Christmas</h1>
         <div class="post-card-container">
           <div
             class="flex-shrink-0"
@@ -91,7 +91,7 @@ export default {
     movies() {
       return this.$store.getters.movies;
     },
-    ...mapGetters(["action", "christian", "christmas", "horror", "sports","drama"]),
+    ...mapGetters(["action", "christian", "christmas", "horror", "disneyChannel","drama"]),
   },
 };
 </script>

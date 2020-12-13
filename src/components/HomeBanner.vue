@@ -1,5 +1,5 @@
 <template>
-  <div class="home-banner h-96 w-screen bg-auto bg-scroll md:bg-fixed bg-center md:bg-top md:bg-cover bg-no-repeat">
+  <div class="home-banner h-96 w-screen bg-auto bg-scroll md:bg-fixed bg-top md:bg-top md:bg-cover bg-no-repeat">
     <div class="home-banner-content-container py-3 lg:w-9/12 w-11/12 m-auto">
       <h1 class="text-white mb-12">Our Ultimate List of Bad Movies</h1>
       <h3 class="text-white mb-12">

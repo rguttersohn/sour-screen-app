@@ -116,10 +116,10 @@ export default new Vuex.Store({
     horror(state, getters) {
       return getters.movies.filter(
         (movie) =>
-          movie.categories[movie.categories.findIndex((cat) => cat === 51)] === 51
+          movie.categories[movie.categories.findIndex((cat) => cat === 48)] === 48
       );
     },
-    sports(state, getters) {
+    disneyChannel(state, getters) {
       return getters.movies.filter(
         (movie) =>
           movie.categories[movie.categories.findIndex((cat) => cat === 55)] === 55
