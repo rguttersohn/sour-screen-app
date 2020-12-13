@@ -27,7 +27,8 @@ export default new Vuex.Store({
         });
     },
     PUSH_TO_RELATED(state) {
-      state.posts.forEach((post) => {
+      let postsCopy = state.posts.slice()
+      postsCopy.forEach((post) => {
         post.relatedScore = 0;
         if (post.id !== state.currentPost.id) {
           post._embedded["wp:term"][0].forEach((el) => {
@@ -58,7 +59,7 @@ export default new Vuex.Store({
           });
         }
       });
-      state.relatedPosts = state.posts
+      state.relatedPosts = postsCopy
         .sort((a, b) => a.relatedScore - b.relatedScore)
         .reverse()
         .slice(0, 5);
@@ -131,6 +132,5 @@ export default new Vuex.Store({
           movie.categories[movie.categories.findIndex((cat) => cat === 5)] === 5
       );
     },
-    
   },
 });
