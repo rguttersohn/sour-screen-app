@@ -15,6 +15,7 @@
 import PostCard from "@/components/PostCard.vue";
 
 export default {
+  name:"Lists",
   components: { PostCard },
   computed: {
     lists() {

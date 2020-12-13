@@ -14,6 +14,7 @@
           </div>
         </div>
       </section>
+
       <section id="drama-posts">
         <h1 class="text-blue-main mt-10 mb-5">Drama</h1>
         <div class="post-card-container">
@@ -26,6 +27,7 @@
           </div>
         </div>
       </section>
+
       <section id="christian-posts">
         <h1 class="text-blue-main mt-10 mb-5">Christian</h1>
         <div class="post-card-container">
@@ -38,6 +40,7 @@
           </div>
         </div>
       </section>
+
       <section id="horror-posts">
         <h1 class="text-blue-main mt-10 mb-5">Horror</h1>
         <div class=" post-card-container">
@@ -84,6 +87,7 @@
 import PostCard from "@/components/PostCard.vue";
 import { mapGetters } from "vuex";
 export default {
+  name:'Movies',
   components: {
     PostCard,
   },
