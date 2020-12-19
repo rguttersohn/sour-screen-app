@@ -10,6 +10,7 @@ export default new Vuex.Store({
     posts: [],
     relatedPosts: [],
     currentPost: "",
+    newUserMessage:{}
   },
   mutations: {
     GET_POSTS(state) {
@@ -18,6 +19,17 @@ export default new Vuex.Store({
         .then((posts) => {
           state.posts = posts;
         });
+    },
+    CREATE_USER(state){
+      fetch(`${state.baseAPIURL}/users/register`,{
+        method:'POST',
+        body:JSON.stringify({username:'Louis',email:'louis@gmail.com',password:'dogs123'}),
+        headers:{
+         'Content-Type':'application/json;charset=UTF-8'
+        }
+      }).then(resp=>resp.json())
+      .then(json=>state.newUserMessage = json.message)
+      .catch(error=>console.error(error))
     },
     GET_CURRENT_POST(state, id) {
       fetch(`${state.baseAPIURL}/posts/${id}?_embed`)

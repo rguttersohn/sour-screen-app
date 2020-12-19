@@ -13,6 +13,7 @@ export default {
   },
   created: function () {
     this.$store.dispatch("getPosts");
+    this.$store.commit('CREATE_USER')
   },
 };
 </script>
