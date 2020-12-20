@@ -3,10 +3,7 @@
     <div class="w-3/4 m-auto">
       <h1 class="text-center text-blue-main">Our lists:</h1>
       <div 
-<<<<<<< HEAD
-=======
       class=""
->>>>>>> main
       v-for="list in lists" :key="list.id">
         <ListCard :post="list" />
       </div>
