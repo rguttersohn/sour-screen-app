@@ -103,13 +103,14 @@ export default {
     this.$store.dispatch("getCurrentPost", this.id);
   },
   watch: {
-    posts(newVal, oldVal) {
-      console.log('old', oldVal)
-      console.log('new', newVal)
+    posts() {
       if(this.posts.length > 0){
         this.$store.dispatch('pushToRelated')
       }
     },
+    currentPost(){
+      this.$store.dispatch('pushToRelated')
+    }
   },
 };
 </script>
