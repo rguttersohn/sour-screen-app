@@ -72,11 +72,16 @@
   }
 
   .post-card{
-    @apply border-4 border-red-main rounded-lg w-full md:w-3/4 m-auto  h-64 my-3
+    @apply border-4 border-red-main hover:border-blue-main rounded-lg w-full md:w-3/4 m-auto  h-64 my-3
   }
   .post-card a div{
     @apply overflow-hidden
   }
+
+  .list-card{
+    @apply border-4 border-red-main hover:border-blue-main rounded-lg w-full md:w-3/4 m-auto  h-64 my-3 overflow-hidden flex
+  }
+
 
   .wp-block-quote {
     @apply bg-black text-white font-mono p-5 w-3/4 mx-auto my-12;
