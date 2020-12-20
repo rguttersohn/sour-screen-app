@@ -3,8 +3,8 @@
 class="flex flex-col justify-between md:flex-row bg-blue-xLight p-10">
     <div
     class="w-full md:w-2/4">
-        <h2 class="text-white">Login to track the movies you've watched</h2>
-        <p class="text-blue-main">Login to see </p>
+        <h2 class="text-white">Login</h2>
+        <p class="text-blue-main">Track the movies you've watched</p>
         <form 
         class="flex flex-col lg:flex-row justify-evenly lg:justify-start items-stretch sm:h-40 md:h-10 flex-wrap"
         @submit.prevent="handleSubmission"
