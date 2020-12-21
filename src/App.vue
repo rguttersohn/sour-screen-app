@@ -21,7 +21,15 @@ export default {
 </script>
 
 <style lang="scss">
-
+html{
+  height:100%;
+}
+body{
+  margin:0;
+  min-height:100%;
+  display:flex;
+  flex-direction:column
+}
 
 
 </style>

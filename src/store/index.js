@@ -64,6 +64,17 @@ export default new Vuex.Store({
         .reverse()
         .slice(0, 5);
     },
+    SUBMIT_NEW_ACCOUNT(state,accountInfo){
+      
+      fetch(`${state.baseAPIURL}/users/register`,{
+        method:'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(accountInfo)
+      }).then((resp)=>resp.json())
+      .then((data)=> console.log(data))
+    }
   },
   actions: {
     getPosts(context) {
@@ -75,6 +86,9 @@ export default new Vuex.Store({
     getCurrentPost(context, id) {
       context.commit("GET_CURRENT_POST", id);
     },
+    submitNewAccount(context,accountInfo,formMessage){
+      context.commit('SUBMIT_NEW_ACCOUNT',accountInfo,formMessage)
+    }
   },
   modules: {},
   getters: {
