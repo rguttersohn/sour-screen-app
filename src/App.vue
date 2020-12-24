@@ -16,7 +16,13 @@ export default {
   },
   created: function () {
     this.$store.dispatch("getPosts");
+    this.$store.commit('GET_TOKEN')
   },
+  computed:{
+    accessToken(){
+      return this.$store.state.accessToken
+    }
+  }
 };
 </script>
 

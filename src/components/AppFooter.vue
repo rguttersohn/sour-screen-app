@@ -24,11 +24,11 @@
         />
         <input class="m-2 p-3 cursor-pointer" type="submit" value="Login" />
       </form>
-      <p v-if="username !== ''">{{ username }}</p>
     </div>
     <div class="w-1/4">
       <h2 class="text-white">Privacy Policy</h2>
     </div>
+    <p class="pointer" @click="logOut">Log out</p>
   </footer>
 </template>
 
@@ -51,6 +51,9 @@ export default {
     handleLogin() {
       this.$store.dispatch("submitLogin", this.loginInfo);
     },
+    logOut(){
+      this.$store.commit('REMOVE_TOKEN')
+    }
   },
 };
 </script>

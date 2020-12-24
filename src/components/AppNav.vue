@@ -19,7 +19,8 @@
         <router-link @click.native="activateNav" to="/movies"><h2>Movies</h2></router-link>
         <router-link @click.native="activateNav" to="/lists"><h2>Lists</h2></router-link>
         <Search />
-        <p>{{username}} is loggedin:{{loggedIn}}</p>
+        <p v-if="accessToken !== ''">Logged in</p>
+        <p v-else>Logged out</p>
       </div>
     </div>
     <svg
@@ -66,8 +67,8 @@ export default {
     username(){
       return this.$store.state.username
     },
-    loggedIn(){
-      return this.$store.state.loggedIn
+    accessToken(){
+      return this.$store.state.accessToken
     }
   },
   methods: {

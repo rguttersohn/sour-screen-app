@@ -10,10 +10,10 @@ export default new Vuex.Store({
     posts: [],
     relatedPosts: [],
     currentPost: "",
-    serverMessage:"",
-    serverCode:"",
-    loggedIn:false,
-    username:""
+    serverMessage: "",
+    serverCode: "",
+    username: "",
+    accessToken: "",
   },
   mutations: {
     GET_POSTS(state) {
@@ -31,7 +31,7 @@ export default new Vuex.Store({
         });
     },
     PUSH_TO_RELATED(state) {
-      let postsCopy = state.posts.slice()
+      let postsCopy = state.posts.slice();
       postsCopy.forEach((post) => {
         post.relatedScore = 0;
         if (post.id !== state.currentPost.id) {
@@ -68,37 +68,48 @@ export default new Vuex.Store({
         .reverse()
         .slice(0, 5);
     },
-    SUBMIT_NEW_ACCOUNT(state,accountInfo){ 
-      fetch(`${state.baseAPIURL}/users/register`,{
-        method:'POST',
+    SUBMIT_NEW_ACCOUNT(state, accountInfo) {
+      fetch(`${state.baseAPIURL}/users/register`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body:JSON.stringify(accountInfo)
-      }).then((resp)=>resp.json())
-      .then((data)=> {
-        state.serverMessage = data.message
-        state.serverCode = data.code
+        body: JSON.stringify(accountInfo),
       })
+        .then((resp) => resp.json())
+        .then((data) => {
+          state.serverMessage = data.message;
+          state.serverCode = data.code;
+        });
     },
-    SUBMIT_LOGIN(state,loginInfo) {
-      fetch(`${state.baseHostURL}wp-json/jwt-auth/v1/token`, {
+    SUBMIT_LOGIN(state, loginInfo) {
+      fetch(`${state.baseHostURL}wp-json/jwt-auth/v1/token/`, {
         method: "POST",
         body: JSON.stringify(loginInfo),
         headers: {
-          'Content-Type': 'application/json'
-    }
+          "Content-Type": "application/json",
+        },
       })
         .then((resp) => resp.json())
         .then((user) => {
-        if(user.code){
-            console.log(user.code)
-        } else{
-            state.loggedIn = true,
-            state.username = user.user_display_name
-        }
+          if (user.code) {
+            console.log(user.code);
+          } else {
+            state.accessToken = user.token
+            window.localStorage.accessToken = user.token
+          }
         });
     },
+    GET_TOKEN(state) {
+      if (window.localStorage.accessToken)
+      state.accessToken = window.localStorage.accessToken
+    },
+    REMOVE_TOKEN(state){
+      if(window.localStorage.accessToken){
+        state.accessToken = "";
+        window.localStorage.removeItem('accessToken')
+      }
+    }
   },
   actions: {
     getPosts(context) {
@@ -110,11 +121,11 @@ export default new Vuex.Store({
     getCurrentPost(context, id) {
       context.commit("GET_CURRENT_POST", id);
     },
-    submitNewAccount(context,accountInfo,formMessage){
-      context.commit('SUBMIT_NEW_ACCOUNT',accountInfo,formMessage)
+    submitNewAccount(context, accountInfo, formMessage) {
+      context.commit("SUBMIT_NEW_ACCOUNT", accountInfo, formMessage);
     },
-    submitLogin(context,loginInfo){
-      context.commit('SUBMIT_LOGIN',loginInfo)
+    submitLogin(context, loginInfo) {
+      context.commit("SUBMIT_LOGIN", loginInfo);
     }
   },
   modules: {},
@@ -146,7 +157,8 @@ export default new Vuex.Store({
     christmas(state, getters) {
       return getters.movies.filter(
         (movie) =>
-          movie.categories[movie.categories.findIndex((cat) => cat === 19)] === 19
+          movie.categories[movie.categories.findIndex((cat) => cat === 19)] ===
+          19
       );
     },
     christian(state, getters) {
@@ -158,13 +170,15 @@ export default new Vuex.Store({
     horror(state, getters) {
       return getters.movies.filter(
         (movie) =>
-          movie.categories[movie.categories.findIndex((cat) => cat === 48)] === 48
+          movie.categories[movie.categories.findIndex((cat) => cat === 48)] ===
+          48
       );
     },
     disneyChannel(state, getters) {
       return getters.movies.filter(
         (movie) =>
-          movie.categories[movie.categories.findIndex((cat) => cat === 55)] === 55
+          movie.categories[movie.categories.findIndex((cat) => cat === 55)] ===
+          55
       );
     },
     drama(state, getters) {
