@@ -10,6 +10,8 @@ export default new Vuex.Store({
     posts: [],
     relatedPosts: [],
     currentPost: "",
+    serverMessage:"",
+    serverCode:""
   },
   mutations: {
     GET_POSTS(state) {
@@ -64,8 +66,7 @@ export default new Vuex.Store({
         .reverse()
         .slice(0, 5);
     },
-    SUBMIT_NEW_ACCOUNT(state,accountInfo){
-      
+    SUBMIT_NEW_ACCOUNT(state,accountInfo){ 
       fetch(`${state.baseAPIURL}/users/register`,{
         method:'POST',
         headers: {
@@ -73,7 +74,10 @@ export default new Vuex.Store({
         },
         body:JSON.stringify(accountInfo)
       }).then((resp)=>resp.json())
-      .then((data)=> console.log(data))
+      .then((data)=> {
+        state.serverMessage = data.message
+        state.serverCode = data.code
+      })
     }
   },
   actions: {
