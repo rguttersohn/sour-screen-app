@@ -19,6 +19,7 @@
         <router-link @click.native="activateNav" to="/movies"><h2>Movies</h2></router-link>
         <router-link @click.native="activateNav" to="/lists"><h2>Lists</h2></router-link>
         <Search />
+        <p>{{username}} is loggedin:{{loggedIn}}</p>
       </div>
     </div>
     <svg
@@ -62,6 +63,12 @@ export default {
     logoURL() {
       return `${this.$store.state.baseHostURL}/wp-content/uploads/2020/12/sour_screen_logo-animated-v3.svg`;
     },
+    username(){
+      return this.$store.state.username
+    },
+    loggedIn(){
+      return this.$store.state.loggedIn
+    }
   },
   methods: {
     activateNav() {

@@ -11,7 +11,9 @@ export default new Vuex.Store({
     relatedPosts: [],
     currentPost: "",
     serverMessage:"",
-    serverCode:""
+    serverCode:"",
+    loggedIn:false,
+    username:""
   },
   mutations: {
     GET_POSTS(state) {
@@ -78,7 +80,25 @@ export default new Vuex.Store({
         state.serverMessage = data.message
         state.serverCode = data.code
       })
+    },
+    SUBMIT_LOGIN(state,loginInfo) {
+      fetch(`${state.baseHostURL}wp-json/jwt-auth/v1/token`, {
+        method: "POST",
+        body: JSON.stringify(loginInfo),
+        headers: {
+          'Content-Type': 'application/json'
     }
+      })
+        .then((resp) => resp.json())
+        .then((user) => {
+        if(user.code){
+            console.log(user.code)
+        } else{
+            state.loggedIn = true,
+            state.username = user.user_display_name
+        }
+        });
+    },
   },
   actions: {
     getPosts(context) {
@@ -92,6 +112,9 @@ export default new Vuex.Store({
     },
     submitNewAccount(context,accountInfo,formMessage){
       context.commit('SUBMIT_NEW_ACCOUNT',accountInfo,formMessage)
+    },
+    submitLogin(context,loginInfo){
+      context.commit('SUBMIT_LOGIN',loginInfo)
     }
   },
   modules: {},
