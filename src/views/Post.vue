@@ -7,6 +7,13 @@
             v-html="currentPost.title.rendered"
             class="text-red-light mb-6 mr-5"
           ></h1>
+          <div 
+          @click="handleLike"
+          class="like-button"></div>
+          <div
+          @click="fetchLikes"
+          class="fetch-button"
+          ></div>
           <template v-for="(tag, index) in currentPost._embedded['wp:term'][1]">
             <v-popover
               offset="16"
@@ -83,7 +90,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-    };
+    }
   },
   computed: {
     postImage() {
@@ -101,6 +108,33 @@ export default {
   },
   created() {
     this.$store.dispatch("getCurrentPost", this.id);
+  },
+  methods:{
+    handleLike(){
+      fetch(`https://www.api-sourscreen.com/wp-json/v1/user_likes/${this.$store.state.userInfo.id}`,{
+        method:"POST",
+        body:JSON.stringify({
+          post_id:this.currentPost.id,
+          post_title:this.currentPost.title.rendered
+        }),
+         headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + this.$store.state.accessToken,
+        },
+      }).then(resp=>resp.json())
+      .then(data=>console.log(data)) 
+    },
+    fetchLikes(){
+      fetch(`https://www.api-sourscreen.com/wp-json/v1/user_likes/${this.$store.state.userInfo.id}`,{
+        method: "GET",
+         headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + this.$store.state.accessToken,
+        }
+      })
+      .then(resp=>resp.json())
+      .then(data=>console.log(data))
+    }
   },
   watch: {
     posts() {
@@ -142,6 +176,23 @@ export default {
       display: block;
       margin: 3% auto;
     }
+  }
+
+  .like-button{
+    cursor: pointer;
+  }
+  .like-button::before{
+      content:"+";
+      font-size:1rem;
+    }
+
+  .fetch-button{
+    cursor: pointer;
+  }
+
+  .fetch-button::before{
+    content:"fetch";
+    font-size:1rem;
   }
 }
 </style>

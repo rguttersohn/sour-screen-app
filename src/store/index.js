@@ -14,6 +14,10 @@ export default new Vuex.Store({
     serverCode: "",
     username: "",
     accessToken: "",
+    userInfo:{
+      id:"",
+      username:""
+    }
   },
   mutations: {
     GET_POSTS(state) {
@@ -97,16 +101,28 @@ export default new Vuex.Store({
           } else {
             state.accessToken = user.token
             window.localStorage.accessToken = user.token
+            window.localStorage.username = user.user_display_name
+            window.localStorage.id = user.user_id
+            state.userInfo.id = user.user_id
+            state.userInfo.username = user.user_display_name
+            
           }
         });
     },
-    GET_TOKEN(state) {
-      if (window.localStorage.accessToken)
+    GET_USER_INFO(state) {
+      if (window.localStorage.accessToken){
       state.accessToken = window.localStorage.accessToken
+      state.userInfo.id = window.localStorage.id
+      state.userInfo.username = window.localStorage.username
+      }
     },
-    REMOVE_TOKEN(state){
+    REMOVE_USER_INFO(state){
       if(window.localStorage.accessToken){
         state.accessToken = "";
+        state.userInfo.id = "";
+        state.userInfo.username = "";
+        window.localStorage.removeItem('id')
+        window.localStorage.removeItem('username')
         window.localStorage.removeItem('accessToken')
       }
     }

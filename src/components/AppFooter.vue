@@ -52,7 +52,7 @@ export default {
       this.$store.dispatch("submitLogin", this.loginInfo);
     },
     logOut(){
-      this.$store.commit('REMOVE_TOKEN')
+      this.$store.commit('REMOVE_USER_INFO')
     }
   },
 };

@@ -16,7 +16,7 @@ export default {
   },
   created: function () {
     this.$store.dispatch("getPosts");
-    this.$store.commit('GET_TOKEN')
+    this.$store.commit('GET_USER_INFO')
   },
   computed:{
     accessToken(){
