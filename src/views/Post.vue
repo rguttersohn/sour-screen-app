@@ -10,10 +10,6 @@
           <div 
           @click="handleLike"
           class="like-button"></div>
-          <div
-          @click="fetchLikes"
-          class="fetch-button"
-          ></div>
           <template v-for="(tag, index) in currentPost._embedded['wp:term'][1]">
             <v-popover
               offset="16"
@@ -124,17 +120,6 @@ export default {
       }).then(resp=>resp.json())
       .then(data=>console.log(data)) 
     },
-    fetchLikes(){
-      fetch(`https://www.api-sourscreen.com/wp-json/v1/user_likes/${this.$store.state.userInfo.id}`,{
-        method: "GET",
-         headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer" + this.$store.state.accessToken,
-        }
-      })
-      .then(resp=>resp.json())
-      .then(data=>console.log(data))
-    }
   },
   watch: {
     posts() {

@@ -15,7 +15,9 @@ export default new Vuex.Store({
     accessToken: "",
     userInfo:{
       id:"",
-      username:""
+      username:"",
+      likes:[],
+      watchList:[]
     }
   },
   mutations: {
@@ -124,6 +126,19 @@ export default new Vuex.Store({
         window.localStorage.removeItem('username')
         window.localStorage.removeItem('accessToken')
       }
+    },
+    GET_USER_LIKES(state){
+        fetch(`${state.baseHostURL}wp-json/v1/user_likes/${state.userInfo.id}`,{
+          method: "GET",
+           headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer" + state.accessToken,
+          }
+        })
+        .then(resp=>resp.json())
+        .then(data=>
+          state.userInfo.likes = data
+          )
     }
   },
   actions: {
@@ -141,6 +156,9 @@ export default new Vuex.Store({
     },
     submitLogin(context, loginInfo) {
       context.commit("SUBMIT_LOGIN", loginInfo);
+    },
+    getUserLikes(context){
+      context.commit('GET_USER_LIKES')
     }
   },
   modules: {},
