@@ -12,7 +12,6 @@ export default new Vuex.Store({
     currentPost: "",
     serverMessage: "",
     serverCode: "",
-    username: "",
     accessToken: "",
     userInfo:{
       id:"",

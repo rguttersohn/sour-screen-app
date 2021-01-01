@@ -2,12 +2,12 @@
   <nav
     id="nav"
     class="lg:h-36 h-24 w-screen flex justify-evenly items-start shadow-xl fixed -top-0 bg-white z-50 border-b-2 border-blue-main transition duration-300 ease-in-out"
-    :class="{'h-auto':navActivated}"
+    :class="{ 'h-auto': navActivated }"
   >
     <div
-      class="w-9/12  my-3 h-3/12 flex lg:flex-row flex-col lg:justify-between lg:items-center"
+      class="w-9/12 my-3 h-3/12 flex lg:flex-row flex-col lg:justify-between lg:items-center"
     >
-      <div @click="navActivated=false" class="">
+      <div @click="navActivated = false" class="">
         <router-link to="/">
           <img :src="logoURL" alt="sour screen logo" />
         </router-link>
@@ -16,11 +16,21 @@
         class="w-8/12 m-auto flex lg:justify-evenly lg:flex-row flex-col items-center justify-center lg:h-auto h-0 overflow-hidden transition duration-300 ease-in-out"
         :class="{ 'h-full': navActivated }"
       >
-        <router-link @click.native="activateNav" to="/movies"><h2>Movies</h2></router-link>
-        <router-link @click.native="activateNav" to="/lists"><h2>Lists</h2></router-link>
+        <router-link @click.native="activateNav" to="/movies"
+          ><h2>Movies</h2></router-link
+        >
+        <router-link @click.native="activateNav" to="/lists"
+          ><h2>Lists</h2></router-link
+        >
         <Search />
-        <p v-if="accessToken !== ''">Logged in</p>
-        <p v-else>Logged out</p>
+        <div v-if="accessToken !== ''">
+          <router-link @click.native="activateNav" :to="{name:'User',params:{id:this.$store.state.userInfo.id}}">
+            <h2 class="font-mono text-red-main">Hi, {{ username }}</h2>
+          </router-link>
+          <h4 class="cursor-pointer text-blue-xLight" @click="logOut">
+            Log out
+          </h4>
+        </div>
       </div>
     </div>
     <svg
@@ -36,15 +46,27 @@
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      <line 
-       class="stroke-current text-red-main"
-      x1="3" y1="12" x2="21" y2="12"></line>
-      <line 
-       class="stroke-current text-blue-main"
-      x1="3" y1="8" x2="21" y2="8"></line>
-      <line 
-       class="stroke-current text-blue-main"
-      x1="3" y1="16" x2="21" y2="16"></line>
+      <line
+        class="stroke-current text-red-main"
+        x1="3"
+        y1="12"
+        x2="21"
+        y2="12"
+      ></line>
+      <line
+        class="stroke-current text-blue-main"
+        x1="3"
+        y1="8"
+        x2="21"
+        y2="8"
+      ></line>
+      <line
+        class="stroke-current text-blue-main"
+        x1="3"
+        y1="16"
+        x2="21"
+        y2="16"
+      ></line>
     </svg>
   </nav>
 </template>
@@ -64,21 +86,25 @@ export default {
     logoURL() {
       return `${this.$store.state.baseHostURL}/wp-content/uploads/2020/12/sour_screen_logo-animated-v3.svg`;
     },
-    username(){
-      return this.$store.state.username
+    username() {
+      return this.$store.state.userInfo.username;
     },
-    accessToken(){
-      return this.$store.state.accessToken
-    }
+    accessToken() {
+      return this.$store.state.accessToken;
+    },
   },
   methods: {
     activateNav() {
-      this.navActivated === false ? this.navActivated = true : this.navActivated = false
+      this.navActivated === false
+        ? (this.navActivated = true)
+        : (this.navActivated = false);
+    },
+    logOut() {
+      this.$store.commit("REMOVE_USER_INFO");
     },
   },
 };
 </script>
 
 <style lang="scss">
-
 </style>
