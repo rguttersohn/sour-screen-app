@@ -1,8 +1,6 @@
 <template>
-  <div class="w-screen lg:py-36 py-24" id="create-account">
-    <div class="w-full md:w-11/12 lg:w-3/4 m-auto my-10 p-5 bg-red-xLight">
+    <div class="w-full md:w-11/12 lg:w-3/4 m-auto p-5 bg-red-xLight">
       <div v-if="serverCode !== 200">
-        <h1 class="text-white">Create an Account</h1>
         <form
           @submit.prevent="handleFormSubmission"
           class="flex flex-col w-full md:w-96 m-auto"
@@ -65,12 +63,11 @@
         </button>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-  data() {
+    data() {
     return {
       formData: {
         username: "",

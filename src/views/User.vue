@@ -9,7 +9,7 @@
         <section v-if="relatedToLikes[0].length > 0" id="suggested-no-1">
           <div>
             <h2 class="text-blue-main my-10">
-              Because you liked "{{ matchedPosts[0].title.rendered }}"
+              Because you liked "<span v-html="matchedPosts[0].title.rendered"></span>"
             </h2>
             <div class="post-card-container m-auto">
               <div
@@ -25,7 +25,7 @@
         <section v-if="relatedToLikes[1].length > 0" id="suggested-no-2">
           <div>
             <h2 class="text-blue-main my-10">
-              Because you liked "{{ matchedPosts[1].title.rendered }}"
+              Because you liked "<span v-html="matchedPosts[1].title.rendered"></span>"
             </h2>
             <div class="post-card-container m-auto">
               <div
@@ -41,7 +41,7 @@
         <section v-if="relatedToLikes[2].length > 0" id="suggested-no-3">
           <div>
             <h2 class="text-blue-main my-10">
-              Because you liked "{{ matchedPosts[2].title.rendered }}"
+              Because you liked "<span v-html="matchedPosts[2].title.rendered"></span>""
             </h2>
             <div class="post-card-container m-auto">
               <div

@@ -34,7 +34,7 @@
             <h2 class="font-mono text-red-main">Oh Hi, {{ username }}</h2>
           </router-link>
         </div>
-        <router-link v-else to="/createaccount">
+        <router-link v-else to="/forms/signup">
           <button class="bg-red-main hover:bg-blue-main text-white font-bold py-2 px-4 rounded flex items-center">
             <p class="font-mono">Log in/sign up</p>
           </button>

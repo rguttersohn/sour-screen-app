@@ -4,8 +4,10 @@ import Home from "../views/Home.vue";
 import List from "../views/List.vue";
 import Database from "../views/Database.vue";
 import Post from "../views/Post.vue";
-import CreateAccount from "../views/CreateAccount.vue";
-import User from "../views/User.vue"
+import Forms from "../views/Forms.vue";
+import User from "../views/User.vue";
+import Login from "../forms/Login.vue";
+import SignUp from "../forms/SignUp.vue";
 
 Vue.use(VueRouter);
 
@@ -22,8 +24,19 @@ const routes = [
   },
   { path: "/movies", name: "Movies", component: Database },
   { path: "/post/:id", name: "Post", component: Post },
-  {path:"/createaccount",name:"CreateAccount", component:CreateAccount},
-  {path:"/user:id",name:"User", component:User}
+  {
+    path: "/forms",
+    name: "Forms",
+    component: Forms,
+    children: [
+      { path: "login", component: Login },
+      {
+        path: "signup",
+        component: SignUp,
+      },
+    ],
+  },
+  { path: "/user/:id", name: "User", component: User },
 ];
 
 const router = new VueRouter({

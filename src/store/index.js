@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import router from '../router'
 
 Vue.use(Vuex);
 
@@ -108,6 +109,7 @@ export default new Vuex.Store({
             state.userInfo.username = user.user_display_name;
             loginInfo = {} 
             this.commit('GET_USER_LIKES')
+            router.push({name:"User",params:{id:user.user_id}})
           }
         });
     },
@@ -120,6 +122,7 @@ export default new Vuex.Store({
     },
     REMOVE_USER_INFO(state){
       if(window.localStorage.accessToken){
+          router.push({path:"/"})
         state.accessToken = "";
         state.userInfo.id = "";
         state.userInfo.username = "";
