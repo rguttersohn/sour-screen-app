@@ -2,69 +2,81 @@
   <div class="w-screen py-24 lg:py-36 h-full" id="user-page">
     <div class="w-full md:w-11/12 lg:w-3/4 m-auto my-10">
       <h1 class="text-red-main">Oh Hi, {{ userName }}</h1>
+      <h1 class="text-blue-main my-5">Movies to watch next</h1>
+      <section 
+      v-if="relatedToLikes[0].length > 0"
+      id="suggested-no-1">
+        <div>
+          <h2 class="text-blue-main my-10">
+            Because you liked "{{ matchedPosts[0].title.rendered }}"
+          </h2>
+          <div class="post-card-container m-auto">
+            <div
+              class="flex-shrink-0"
+              v-for="post in relatedToLikes[0]"
+              :key="post.id"
+            >
+              <PostCard :post="post" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section 
+      v-if="relatedToLikes[1].length > 0"
+      id="suggested-no-2">
+        <div>
+          <h2 class="text-blue-main my-10">
+            Because you liked "{{ matchedPosts[1].title.rendered }}"
+          </h2>
+          <div class="post-card-container m-auto">
+            <div
+              class="flex-shrink-0"
+              v-for="post in relatedToLikes[1]"
+              :key="post.id"
+            >
+              <PostCard :post="post" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section 
+      v-if="relatedToLikes[2].length > 0"
+      id="suggested-no-3">
+        <div>
+          <h2 class="text-blue-main my-10">
+            Because you liked "{{ matchedPosts[2].title.rendered }}"
+          </h2>
+          <div class="post-card-container m-auto">
+            <div
+              class="flex-shrink-0"
+              v-for="post in relatedToLikes[2]"
+              :key="post.id"
+            >
+              <PostCard :post="post" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="user-likes">
+        <div>
+          <h1 class="text-center text-red-main my-10">Here are your likes:</h1>
+          <div class="post-card-container m-auto">
+            <p v-if="userLikes.length === 0">
+              Starting liking movies so we can suggest new ones.<br>
+              New to bad movies? <router-link to="/post/23"> out our list of starter movies.</router-link>
+            </p>
+            <div
+              v-else
+              class="flex-shrink-0"
+              v-for="post in matchedPosts"
+              :key="post.id"
+            >
+              <PostCard :post="post" />
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <section
-    id="suggested-no-1">
-      <div>
-        <h2 class="text-blue-main my-10">Because you liked "{{matchedPosts[0].title.rendered}}"</h2>
-        <div class="post-card-container m-auto">
-          <div
-            class="flex-shrink-0"
-            v-for="post in relatedToLikes[0]"
-            :key="post.id"
-          >
-            <PostCard :post="post" />
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="suggested-no-2">
-            <div>
-        <h2 class="text-blue-main my-10">Because you liked "{{matchedPosts[1].title.rendered}}"</h2>
-        <div class="post-card-container m-auto">
-          <div
-            class="flex-shrink-0"
-            v-for="post in relatedToLikes[1]"
-            :key="post.id"
-          >
-            <PostCard :post="post" />
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="suggested-no-3">
-            <div>
-        <h2 class="text-blue-main my-10">Because you liked "{{matchedPosts[2].title.rendered}}"</h2>
-        <div class="post-card-container m-auto">
-          <div
-            class="flex-shrink-0"
-            v-for="post in relatedToLikes[2]"
-            :key="post.id"
-          >
-            <PostCard :post="post" />
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="user-likes">
-      <div>
-        <h1 class="text-center text-red-main my-10">Here are your likes:</h1>
-        <div class="post-card-container m-auto">
-          <p v-if="userLikes.length === 0">
-            Click the like button on the individual movie pages to add to your
-            list list
-          </p>
-          <div
-            v-else
-            class="flex-shrink-0"
-            v-for="post in matchedPosts"
-            :key="post.id"
-          >
-            <PostCard :post="post" />
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -148,14 +160,14 @@ export default {
       this.matchUserLikes();
     },
     matchedPosts() {
-      if (this.matchedPosts[0]){
-      this.createRelatedToLike(this.matchedPosts, 0);
+      if (this.matchedPosts[0]) {
+        this.createRelatedToLike(this.matchedPosts, 0);
       }
-      if (this.matchedPosts[1]){
-      this.createRelatedToLike(this.matchedPosts, 1);
+      if (this.matchedPosts[1]) {
+        this.createRelatedToLike(this.matchedPosts, 1);
       }
-      if (this.matchedPosts[1]){
-      this.createRelatedToLike(this.matchedPosts, 2);
+      if (this.matchedPosts[1]) {
+        this.createRelatedToLike(this.matchedPosts, 2);
       }
     },
   },

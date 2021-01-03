@@ -24,13 +24,21 @@
         >
         <Search />
         <div v-if="accessToken !== ''">
-          <router-link @click.native="activateNav" :to="{name:'User',params:{id:this.$store.state.userInfo.id}}">
+          <router-link
+            @click.native="activateNav"
+            :to="{
+              name: 'User',
+              params: { id: this.$store.state.userInfo.id },
+            }"
+          >
             <h2 class="font-mono text-red-main">Oh Hi, {{ username }}</h2>
           </router-link>
-          <h4 class="cursor-pointer text-blue-xLight" @click="logOut">
-            Log out
-          </h4>
         </div>
+        <router-link v-else to="/createaccount">
+          <button class="bg-red-main hover:bg-blue-main text-white font-bold py-2 px-4 rounded flex items-center">
+            <p class="font-mono">Log in/sign up</p>
+          </button>
+        </router-link>
       </div>
     </div>
     <svg
