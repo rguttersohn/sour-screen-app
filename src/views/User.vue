@@ -33,6 +33,7 @@ components:{PostCard},
 data(){
     return{
         matchedPosts:[],
+        relatedToLikes:[{},{},{}]
     }
 },
   computed:mapState({
@@ -55,6 +56,45 @@ data(){
               }
           }
           
+      },
+      createRelatedToLike(relatedPost,indexValue){
+      let postsCopy = this.posts.slice();
+      postsCopy.forEach((post) => {
+        post.relatedScore = 0;
+        if (post.id !== relatedPost[indexValue].id) {
+          post._embedded["wp:term"][0].forEach((el) => {
+            for (
+              let i = 0;
+              i < relatedPost[indexValue]._embedded["wp:term"][0].length;
+              i++
+            ) {
+              if (
+                el.name === relatedPost[indexValue]._embedded["wp:term"][0][i].name
+              ) {
+                post.relatedScore = post.relatedScore + 3;
+              }
+            }
+          });
+          post._embedded["wp:term"][1].forEach((el) => {
+            for (
+              let i = 0;
+              i < relatedPost[indexValue]._embedded["wp:term"][1].length;
+              i++
+            ) {
+              if (
+                el.name === relatedPost[indexValue]._embedded["wp:term"][1][i].name
+              ) {
+                post.relatedScore = post.relatedScore + 1;
+              }
+            }
+          });
+        }
+      });
+      this.relatedToLikes[indexValue] = postsCopy
+        .sort((a, b) => a.relatedScore - b.relatedScore)
+        .reverse()
+        .slice(0, 5);
+    
       }
   },
   watch:{
@@ -63,6 +103,9 @@ data(){
       },
       userLikes(){
           this.matchUserLikes()
+      },
+      matchedPosts(){
+        this.createRelatedToLike(this.matchedPosts,0)
       }
   }
 };
