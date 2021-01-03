@@ -3,24 +3,29 @@
     <section class="w-full mb-5" id="intro-section" v-if="currentPost !== ''">
       <div class="w-9/12 m-auto">
         <div class="flex flex-col lg:flex-row justify-between items-center">
-          <div id="post-title-container" class=" w-full lg:w-3/4">
+          <div id="post-title-container" class="w-full lg:w-3/4">
             <h1
               v-html="currentPost.title.rendered"
-              class="text-red-light mb-6 mr-5 "
+              class="text-red-light mb-6 mr-5"
             ></h1>
-            <div class="mb-6 excerpt" v-html="currentPost.excerpt.rendered"></div>
-
+            <div
+              class="mb-6 excerpt"
+              v-html="currentPost.excerpt.rendered"
+            ></div>
           </div>
-          <div id="post-icon-container" class="flex justify-evenly w-full lg:w-1/4">
+          <div
+            id="post-icon-container"
+            class="flex justify-evenly w-full lg:w-1/4"
+          >
             <button
               v-if="this.$store.state.accessToken !== ''"
               @click="handleLike"
               class="bg-red-main hover:bg-blue-main text-white font-bold py-2 px-4 rounded flex items-center"
-              :class="{'bg-red-light pointer-events-none':liked}"
+              :class="{ 'bg-red-light pointer-events-none': liked }"
               :disabled="liked"
             >
               <svg
-              v-if="!liked"              
+                v-if="!liked"
                 width="25px"
                 height="25px"
                 viewBox="0 0 198.995 198.996"
@@ -98,28 +103,23 @@
                   />
                 </g>
               </svg>
-             <h4
-             v-if="!liked"
-             class="font-mono">Like this movie</h4>
-             <h4 v-else
-             class="font-mono">
-              You liked this movie
-             </h4>
+              <h4 v-if="!liked" class="font-mono">Like this movie</h4>
+              <h4 v-else class="font-mono">You liked this movie</h4>
             </button>
             <router-link
               class="font-mono text-red-main"
               :to="{ name: 'CreateAccount' }"
               v-else
-              >
-              <button
-              class="bg-blue-main text-white font-bold py-2 px-4 rounded flex">
-              <h3>
-                Log in/sign up
-              </h3>
-              </button>
-              </router-link
             >
-            <template v-for="(tag, index) in currentPost._embedded['wp:term'][1]">
+              <button
+                class="bg-blue-main text-white font-bold py-2 px-4 rounded flex"
+              >
+                <h3>Log in/sign up</h3>
+              </button>
+            </router-link>
+            <template
+              v-for="(tag, index) in currentPost._embedded['wp:term'][1]"
+            >
               <v-popover
                 offset="16"
                 placement="auto"
@@ -195,7 +195,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      liked:false,
+      liked: false,
     };
   },
   computed: {
@@ -210,12 +210,12 @@ export default {
       posts: (state) => state.posts,
       currentPost: (state) => state.currentPost,
       relatedPosts: (state) => state.relatedPosts,
-      userLikes:state=>state.userInfo.likes
+      userLikes: (state) => state.userInfo.likes,
     }),
   },
   created() {
     this.$store.dispatch("getCurrentPost", this.id);
-    this.checkIfLiked()
+    this.checkIfLiked();
   },
   methods: {
     handleLike() {
@@ -234,15 +234,22 @@ export default {
         }
       )
         .then((resp) => resp.json())
-        .then(() => this.liked = true);
+        .then(() => (this.liked = true));
     },
-    checkIfLiked(){
-      for(let i =0; i < this.userLikes.length; i++){
-        if (this.userLikes[i].post_id === this.currentPost.id){
-          this.liked = true
+    checkIfLiked() {
+      console.log('check if liked has run')
+      if (this.userLikes.length > 0) {
+        for (let i = 0; i < this.userLikes.length; i++) {
+          if (this.userLikes[i].post_id === this.currentPost.id) {
+            this.liked = true;
+            console.log('evaluates to true')
+          } else {
+            this.liked= false;
+            console.log('evals to false')
+          }
         }
       }
-    }
+    },
   },
   watch: {
     posts() {
@@ -252,6 +259,14 @@ export default {
     },
     currentPost() {
       this.$store.dispatch("pushToRelated");
+      if (this.userLikes.length> 0){
+        this.checkIfLiked()
+      }
+    },
+    userLikes(){
+      if (this.userLikes.length> 0){
+        this.checkIfLiked()
+      }
     },
   },
 };

@@ -89,7 +89,6 @@
       class="bg-red-main hover:bg-blue-main text-white font-bold py-2 px-4 mx-auto my-5 rounded flex items-center"
       >Check Out Our Starter List</button></router-link>
       <p class="text-center">New to bad movies? Check out our starter list.</p>
-
       </div>
       </div>
       </div>
