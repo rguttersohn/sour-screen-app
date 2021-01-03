@@ -14,6 +14,7 @@
             ></div>
           </div>
           <div
+          v-if="!this.currentPost.categories.includes(3)"
             id="post-icon-container"
             class="flex justify-evenly w-full lg:w-1/4"
           >
@@ -237,15 +238,12 @@ export default {
         .then(() => (this.liked = true));
     },
     checkIfLiked() {
-      console.log('check if liked has run')
       if (this.userLikes.length > 0) {
         for (let i = 0; i < this.userLikes.length; i++) {
           if (this.userLikes[i].post_id === this.currentPost.id) {
             this.liked = true;
-            console.log('evaluates to true')
           } else {
             this.liked= false;
-            console.log('evals to false')
           }
         }
       }
