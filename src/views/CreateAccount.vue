@@ -100,7 +100,7 @@ export default {
         this.newAccountInfo.password = this.formData.password;
         this.loginInfo.username = this.formData.username;
         this.loginInfo.password = this.formData.password;
-        this.$store.dispatch("submitNewAccount", {accountInfo:this.newAccountInfo,loginInfo:this.loginInfo});
+        this.$store.dispatch("submitNewAccount", this.newAccountInfo);
         this.formData.username = "";
         this.formData.email = "";
         this.formData.password = "";
