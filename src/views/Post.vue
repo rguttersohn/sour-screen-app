@@ -215,8 +215,8 @@ export default {
     }),
   },
   created() {
-    this.$store.dispatch("getCurrentPost", this.id);
-    this.checkIfLiked();
+    this.$store.dispatch("getCurrentPost", this.id).then(()=>{
+    this.checkIfLiked()});
   },
   methods: {
     handleLike() {
@@ -240,10 +240,12 @@ export default {
     checkIfLiked() {
       if (this.userLikes.length > 0) {
         for (let i = 0; i < this.userLikes.length; i++) {
+          console.log(this.userLikes[i])
           if (this.userLikes[i].post_id === this.currentPost.id) {
             this.liked = true;
+            break
           } else {
-            this.liked= false;
+            this.liked = false;
           }
         }
       }
@@ -257,14 +259,10 @@ export default {
     },
     currentPost() {
       this.$store.dispatch("pushToRelated");
-      if (this.userLikes.length> 0){
-        this.checkIfLiked()
-      }
+      this.checkIfLiked()
     },
     userLikes(){
-      if (this.userLikes.length> 0){
-        this.checkIfLiked()
-      }
+      this.checkIfLiked()
     },
   },
 };
