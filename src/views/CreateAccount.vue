@@ -51,11 +51,18 @@
           <label v-else>{{ serverMessage }}</label>
         </form>
       </div>
-      <div v-else>
-        <h2>Create an Account</h2>
-        <p>
+      <div v-else
+      class="flex flex-col w-full md:w-96 m-auto"
+      >
+        <h1 class="text-white mb-5 text-center">Booyah!</h1>
+        <h3 class="mb-5 text-center text-red-main">
           {{serverMessage}}
-        </p>
+        </h3>
+        <button
+        class="bg-red-main hover:bg-red-light text-white font-bold py-2 px-4 rounded mb-5"
+        @click="handleLogin">
+        <h2 class="font-mono">Click to login!</h2>
+        </button>
       </div>
     </div>
   </div>
@@ -72,16 +79,16 @@ export default {
         confirmPassword: "",
       },
       newAccountInfo: {},
+      loginInfo:{},
       formMessage: "",
-      loggedIn:false,
       user:{
         userName:"",
         userId:""
-      }
-    };
+      },
+    }
   },
   methods: {
-    handleFormSubmission() {
+    async handleFormSubmission() {
       this.formMessage = "";
       if (this.formData.confirmPassword !== this.formData.password) {
         this.formData.password = "";
@@ -91,7 +98,9 @@ export default {
         this.newAccountInfo.username = this.formData.username;
         this.newAccountInfo.email = this.formData.email;
         this.newAccountInfo.password = this.formData.password;
-        this.$store.dispatch("submitNewAccount", this.newAccountInfo);
+        this.loginInfo.username = this.formData.username;
+        this.loginInfo.password = this.formData.password;
+        this.$store.dispatch("submitNewAccount", {accountInfo:this.newAccountInfo,loginInfo:this.loginInfo});
         this.formData.username = "";
         this.formData.email = "";
         this.formData.password = "";
@@ -99,6 +108,9 @@ export default {
         this.newAccountInfo = [];
       }
     },
+    handleLogin(){
+      this.$store.dispatch('submitLogin',this.loginInfo)
+    }
   },
   computed: {
     serverMessage() {

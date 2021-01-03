@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang='scss'>
-#database-list {
+#database-list,#user-page {
   .post-card {
     width: 250px;
   }

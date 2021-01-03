@@ -1,42 +1,151 @@
 <template>
   <div class="w-screen lg:py-36 py-24">
-    <section class="w-full" id="intro-section" v-if="currentPost !== ''">
+    <section class="w-full mb-5" id="intro-section" v-if="currentPost !== ''">
       <div class="w-9/12 m-auto">
-        <div class="flex justify-start items-center">
-          <h1
-            v-html="currentPost.title.rendered"
-            class="text-red-light mb-6 mr-5"
-          ></h1>
-          <div 
-          @click="handleLike"
-          class="like-button"></div>
-          <template v-for="(tag, index) in currentPost._embedded['wp:term'][1]">
-            <v-popover
-              offset="16"
-              placement="auto"
-              hideOnTargetClick="false"
-              :delay="{ show: 300, hide: 300 }"
-              :key="index"
-              v-if="tag.name === 'starter'"
+        <div class="flex flex-col lg:flex-row justify-between items-center">
+          <div id="post-title-container" class=" w-full lg:w-3/4">
+            <h1
+              v-html="currentPost.title.rendered"
+              class="text-red-light mb-6 mr-5 "
+            ></h1>
+            <div class="mb-6 excerpt" v-html="currentPost.excerpt.rendered"></div>
+
+          </div>
+          <div id="post-icon-container" class="flex justify-evenly w-full lg:w-1/4">
+            <button
+              v-if="this.$store.state.accessToken !== ''"
+              @click="handleLike"
+              class="bg-red-main hover:bg-blue-main text-white font-bold py-2 px-4 rounded flex items-center"
+              :class="{'bg-red-light pointer-events-none':liked}"
+              :disabled="liked"
             >
-              <img
-                class="tooltip-target"
-                :src="starterIcon"
-                alt="starter icon"
-              />
-              <template slot="popover">
+              <svg
+              v-if="!liked"              
+                width="25px"
+                height="25px"
+                viewBox="0 0 198.995 198.996"
+                xml:space="preserve"
+              >
+                <g>
+                  <rect
+                    y="80.097"
+                    style="fill: white"
+                    width="53.856"
+                    height="113.267"
+                  />
+                  <rect
+                    x="43.171"
+                    y="86.167"
+                    style="fill: white"
+                    width="53.882"
+                    height="14.16"
+                  />
+                  <rect
+                    x="94.237"
+                    y="51.007"
+                    style="fill: white"
+                    width="14.157"
+                    height="36.863"
+                  />
+                  <rect
+                    x="101.316"
+                    y="15.376"
+                    style="fill: white"
+                    width="14.16"
+                    height="36.864"
+                  />
+                  <rect
+                    x="141.724"
+                    y="15.376"
+                    style="fill: white"
+                    width="14.158"
+                    height="56.368"
+                  />
+                  <rect
+                    x="184.832"
+                    y="85.902"
+                    style="fill: white"
+                    width="14.163"
+                    height="97.723"
+                  />
+                  <rect
+                    x="119.299"
+                    y="183.625"
+                    style="fill: white"
+                    width="65.533"
+                    height="14.151"
+                  />
+                  <rect
+                    x="48.998"
+                    y="169.462"
+                    style="fill: white"
+                    width="70.301"
+                    height="14.163"
+                  />
+                  <rect
+                    x="112.705"
+                    y="1.218"
+                    style="fill: white"
+                    width="29.019"
+                    height="14.158"
+                  />
+                  <rect
+                    x="155.882"
+                    y="71.745"
+                    style="fill: white"
+                    width="28.95"
+                    height="14.158"
+                  />
+                </g>
+              </svg>
+             <h4
+             v-if="!liked"
+             class="font-mono">Like this movie</h4>
+             <h4 v-else
+             class="font-mono">
+              You liked this movie
+             </h4>
+            </button>
+            <router-link
+              class="font-mono text-red-main"
+              :to="{ name: 'CreateAccount' }"
+              v-else
+              >
+              <button
+              class="bg-blue-main text-white font-bold py-2 px-4 rounded flex">
+              <h3>
+                Log in/sign up
+              </h3>
+              </button>
+              </router-link
+            >
+            <template v-for="(tag, index) in currentPost._embedded['wp:term'][1]">
+              <v-popover
+                offset="16"
+                placement="auto"
+                hideOnTargetClick="false"
+                :delay="{ show: 300, hide: 300 }"
+                :key="index"
+                v-if="tag.name === 'starter'"
+              >
                 <img
+                  class="tooltip-target"
                   :src="starterIcon"
-                  alt="icon representing starter movies"
+                  alt="starter icon"
                 />
-                <p>
-                  Movies with this icon are considered must-watch bad movies.
-                </p>
-              </template>
-            </v-popover>
-          </template>
+                <template slot="popover">
+                  <img
+                    :src="starterIcon"
+                    alt="icon representing starter movies"
+                  />
+                  <p>
+                    Movies with this icon are considered must-watch bad movies.
+                  </p>
+                </template>
+              </v-popover>
+            </template>
+          </div>
         </div>
-        <div class="mb-6 excerpt" v-html="currentPost.excerpt.rendered"></div>
       </div>
     </section>
 
@@ -86,7 +195,8 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-    }
+      liked:false,
+    };
   },
   computed: {
     postImage() {
@@ -100,36 +210,49 @@ export default {
       posts: (state) => state.posts,
       currentPost: (state) => state.currentPost,
       relatedPosts: (state) => state.relatedPosts,
+      userLikes:state=>state.userInfo.likes
     }),
   },
   created() {
     this.$store.dispatch("getCurrentPost", this.id);
+    this.checkIfLiked()
   },
-  methods:{
-    handleLike(){
-      fetch(`https://www.api-sourscreen.com/wp-json/v1/user_likes/${this.$store.state.userInfo.id}`,{
-        method:"POST",
-        body:JSON.stringify({
-          post_id:this.currentPost.id,
-          post_title:this.currentPost.title.rendered
-        }),
-         headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer" + this.$store.state.accessToken,
-        },
-      }).then(resp=>resp.json())
-      .then(data=>console.log(data)) 
+  methods: {
+    handleLike() {
+      fetch(
+        `https://www.api-sourscreen.com/wp-json/v1/user_likes/${this.$store.state.userInfo.id}`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            post_id: this.currentPost.id,
+            post_title: this.currentPost.title.rendered,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer" + this.$store.state.accessToken,
+          },
+        }
+      )
+        .then((resp) => resp.json())
+        .then(() => this.liked = true);
     },
+    checkIfLiked(){
+      for(let i =0; i < this.userLikes.length; i++){
+        if (this.userLikes[i].post_id === this.currentPost.id){
+          this.liked = true
+        }
+      }
+    }
   },
   watch: {
     posts() {
-      if(this.posts.length > 0){
-        this.$store.dispatch('pushToRelated')
+      if (this.posts.length > 0) {
+        this.$store.dispatch("pushToRelated");
       }
     },
-    currentPost(){
-      this.$store.dispatch('pushToRelated')
-    }
+    currentPost() {
+      this.$store.dispatch("pushToRelated");
+    },
   },
 };
 </script>
@@ -161,23 +284,6 @@ export default {
       display: block;
       margin: 3% auto;
     }
-  }
-
-  .like-button{
-    cursor: pointer;
-  }
-  .like-button::before{
-      content:"+";
-      font-size:1rem;
-    }
-
-  .fetch-button{
-    cursor: pointer;
-  }
-
-  .fetch-button::before{
-    content:"fetch";
-    font-size:1rem;
   }
 }
 </style>

@@ -18,7 +18,7 @@ export default new Vuex.Store({
       username:"",
       likes:[],
       watchList:[]
-    }
+    },
   },
   mutations: {
     GET_POSTS(state) {
@@ -105,8 +105,9 @@ export default new Vuex.Store({
             window.localStorage.username = user.user_display_name
             window.localStorage.id = user.user_id
             state.userInfo.id = user.user_id
-            state.userInfo.username = user.user_display_name
-            
+            state.userInfo.username = user.user_display_name;
+            loginInfo = {} 
+            this.commit('GET_USER_LIKES')
           }
         });
     },
@@ -151,11 +152,11 @@ export default new Vuex.Store({
     getCurrentPost(context, id) {
       context.commit("GET_CURRENT_POST", id);
     },
-    submitNewAccount(context, accountInfo, formMessage) {
-      context.commit("SUBMIT_NEW_ACCOUNT", accountInfo, formMessage);
+    submitNewAccount(context, accountInfo) {
+        context.commit("SUBMIT_NEW_ACCOUNT", accountInfo) 
     },
-    submitLogin(context, loginInfo) {
-      context.commit("SUBMIT_LOGIN", loginInfo);
+    submitLogin(context,loginInfo) {
+      context.commit("SUBMIT_LOGIN",loginInfo);
     },
     getUserLikes(context){
       context.commit('GET_USER_LIKES')

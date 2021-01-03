@@ -25,7 +25,7 @@
         <Search />
         <div v-if="accessToken !== ''">
           <router-link @click.native="activateNav" :to="{name:'User',params:{id:this.$store.state.userInfo.id}}">
-            <h2 class="font-mono text-red-main">Hi, {{ username }}</h2>
+            <h2 class="font-mono text-red-main">Oh Hi, {{ username }}</h2>
           </router-link>
           <h4 class="cursor-pointer text-blue-xLight" @click="logOut">
             Log out

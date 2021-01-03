@@ -17,6 +17,9 @@ export default {
   created: function () {
     this.$store.dispatch("getPosts");
     this.$store.commit('GET_USER_INFO')
+    if (this.accessToken !== ""){
+      this.$store.dispatch('getUserLikes')
+    }
   },
   computed:{
     accessToken(){

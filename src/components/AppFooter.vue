@@ -1,8 +1,16 @@
 <template>
   <footer class="flex flex-col justify-between md:flex-row bg-blue-xLight p-10">
-    <div class="w-full md:w-2/4">
+    <div
+    v-if="this.$store.state.accessToken !==''"
+    >
+    <h2 class="text-white">Logged in as {{username}}</h2>
+    <p
+    @click="logOut">Log out</p>
+    </div>
+    <div 
+    v-else
+    class="w-full md:w-2/4">
       <h2 class="text-white">Login</h2>
-      <p class="text-blue-main">Track the movies you've watched</p>
       <router-link :to="{ name: 'CreateAccount' }"
         >Or create an account</router-link
       >
@@ -28,7 +36,6 @@
     <div class="w-1/4">
       <h2 class="text-white">Privacy Policy</h2>
     </div>
-    <p class="pointer" @click="logOut">Log out</p>
   </footer>
 </template>
 
@@ -44,12 +51,12 @@ export default {
   },
   computed: {
     username() {
-      return this.$store.state.username;
+      return this.$store.state.userInfo.username;
     },
   },
   methods: {
     handleLogin() {
-      this.$store.dispatch("submitLogin", this.loginInfo);
+      this.$store.dispatch("submitLogin",this.loginInfo);
     },
     logOut(){
       this.$store.commit('REMOVE_USER_INFO')
